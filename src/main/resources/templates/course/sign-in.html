@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Zapis na kurs</title>
+</head>
+<body>
+<h2>Zapis na kurs</h2>
+<form th:action="@{'/kurs/zapis'}" th:object="${newStudent}" th:method="'post'">
+    <label for="first-name">Imię: </label>
+    <input type="text" id="first-name" th:field="*{firstName}"><br>
+    <label for="last-name">Nazwisko: </label>
+    <input type="text" id="last-name" th:field="*{lastName}"><br>
+    <label for="email">E-mail: </label>
+    <input type="text" id="email" th:field="*{email}"><br>
+    <label for="phone">Telefon: </label>
+    <input type="text" id="phone" th:field="*{phone}"><br>
+    <label for="course-selector">Kurs: </label>
+    <select id="course-selector" name="courseId">
+        <option th:each="course: ${courses}" th:text="${course.getName()}"
+                th:value="${course.getId()}"></option>
+    </select>
+    <br>
+    <input type="submit">
+</form>
+</body>
+</html>

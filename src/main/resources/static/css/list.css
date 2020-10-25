@@ -1,0 +1,32 @@
+table {
+    font-size: 0.9em;
+    border-collapse: collapse;
+}
+
+th {
+    padding: 10px;
+    border: 2px solid black;
+    background-color: #2a71ff;
+    color: white;
+}
+
+td {
+    padding: 5px;
+    border: 1px solid grey;
+}
+
+tr td:first-child, tr td:nth-child(6) {
+    text-align: center;
+}
+
+tr td:nth-child(4) {
+    /*font-size: 0.8em;*/
+}
+
+tr:nth-child(odd) {
+    background-color: #c3f3f6;
+}
+
+tr:hover {
+    background-color: #21c7fa;
+}
