@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.sda.bootcamp.model.Course;
 import pl.sda.bootcamp.model.Student;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,13 +19,33 @@ public class CourseController {
     public CourseController() {
         this.courses = List.of(
                 Course.builder().id(1)
-                      .name("Java").city("Warszawa").mode("dzienny").build(),
+                      .name("Java Developer")
+                      .city("Warszawa")
+                      .beginDate(LocalDate.of(2020, 11, 14))
+                      .endDate(LocalDate.of(2021, 7, 18))
+                      .mode("weekendowy")
+                      .build(),
                 Course.builder().id(2)
-                      .name("C++").city("Kraków").mode("weekendowy").build(),
+                      .name("C++ od podstaw")
+                      .city("Kraków")
+                      .beginDate(LocalDate.of(2020, 12, 7))
+                      .endDate(LocalDate.of(2021, 8, 18))
+                      .mode("weekendowy")
+                      .build(),
                 Course.builder().id(3)
-                      .name("Spring").city("Szczecin").mode("dzienny").build(),
+                      .name("Frontend Developer")
+                      .city("Szczecin")
+                      .beginDate(LocalDate.of(2020, 12, 14))
+                      .endDate(LocalDate.of(2021, 3, 15))
+                      .mode("dzienny")
+                      .build(),
                 Course.builder().id(4)
-                      .name("Python").city("Warszawa").mode("weekendowy").build()
+                      .name("Python - analiza danych")
+                      .city("Warszawa")
+                      .beginDate(LocalDate.of(2021, 1, 14))
+                      .endDate(LocalDate.of(2021, 5, 25))
+                      .mode("dzienny")
+                      .build()
         );
         this.cities = this.courses.stream()
                                   .map(Course::getCity)

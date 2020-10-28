@@ -1,29 +1,45 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="pl"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Lista Kursów</title>
-    <link th:href="@{/css/list.css}" rel="stylesheet" />
+    <link th:href="@{/css/list.css}" rel="stylesheet"/>
 </head>
 <body>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Nazwa kursu</th>
-        <th>Data startu</th>
-        <th>Data zakończenia</th>
-        <th>Miasto</th>
-        <th>Cena</th>
-    </tr>
-    <tr th:each="course: ${courses}">
-        <td th:text="${course.id}">courseId</td>
-        <td th:text="${course.name}">courseName</td>
-        <td>[start-date]</td>
-        <td>[end-date]</td>
-        <td th:text="${course.city}">courseCity</td>
-        <td>[price]</td>
-    </tr>
-</table>
+<!--    <div th:insert="navbar::navbar"></div>-->
+<div id="content">
+    <div class="courses-container">
+        <h1>Aktualnie dostępne kursy</h1>
+        <div class="course-tile" th:each="course: ${courses}">
+            <div class="course-header">
+                <div class="course-name"
+                     th:text="${course.name}">courseName
+                </div>
+                <a href=#>
+                    <div class="signup-button"><span>Zapisz się</span></div>
+                </a>
+            </div>
+            <div class="course-details">
+                <div class="course-detail-tile">
+                    <p>Miasto</p>
+                    <p class="strong" th:text="${course.city}">courseCity</p>
+                </div>
+                <div class="course-detail-tile">
+                    <p>Data rozpoczęcia</p>
+                    <p class="strong" th:text="${course.beginDate}">courseBegin</p>
+                </div>
+                <div class="course-detail-tile">
+                    <p>Data zakończenia</p>
+                    <p class="strong" th:text="${course.endDate}">courseEnd</p>
+                </div>
+                <div class="course-detail-tile">
+                    <p>Tryb</p>
+                    <p class="strong" th:text="${course.mode}">courseMode</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
