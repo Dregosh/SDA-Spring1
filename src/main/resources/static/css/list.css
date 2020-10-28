@@ -7,6 +7,11 @@ body {
     font-family: Arial, sans-serif;
 }
 
+div.courses-container {
+    width: 93%;
+    padding: 0 15px;
+}
+
 div.course-tile {
     margin: 25px 0;
     padding: 25px;
@@ -20,8 +25,7 @@ div.course-tile:hover {
 }
 
 a.signup-button {
-    padding: 10px 50px;
-    /* margin: 15px 0; */
+    padding: 10px 30px;
     font-size: 1.5rem;
     border-style: none;
     border-radius: 30px 15px;
@@ -60,6 +64,11 @@ h1 {
 
     div.courses-container {
         max-width: 540px;
+    }
+
+    a.signup-button {
+        padding: 10px 60px;
+        font-size: 1.50rem;
     }
 }
 
@@ -113,11 +122,6 @@ div#content {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-div.courses-container {
-    width: 100%;
-    padding: 0 15px;
 }
 
 div.course-header {
