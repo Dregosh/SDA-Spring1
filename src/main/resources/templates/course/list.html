@@ -16,8 +16,8 @@
                 <div class="course-name"
                      th:text="${course.name}">courseName
                 </div>
-                <a th:href="@{/kurs/zapis/{courseId}(courseId = ${course.id})}">
-                    <div class="signup-button"><span>Zapisz się</span></div>
+                <a class="signup-button"
+                   th:href="@{/kurs/zapis/{courseId}(courseId = ${course.id})}">Zapisz się
                 </a>
             </div>
             <div class="course-details">
