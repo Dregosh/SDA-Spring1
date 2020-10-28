@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class CourseController {
     private List<String> cities;
     private List<Course> courses;
+    private Student newStudent;
 
     public CourseController() {
         this.courses = List.of(
@@ -52,6 +53,7 @@ public class CourseController {
                                   .distinct()
                                   .sorted()
                                   .collect(Collectors.toList());
+        this.newStudent = null;
     }
 
     @GetMapping("/lista")
@@ -76,19 +78,19 @@ public class CourseController {
         return "course/add";
     }
 
-    @GetMapping("/zapis")
-    public String signIn(Model model) {
-        model.addAttribute("newStudent", Student.builder().build());
-        model.addAttribute("courses", courses);
-        return "course/sign-in";
+    @GetMapping("/zapis/{courseId}")
+    public String signIn(@PathVariable int courseId, Model model) {
+        this.newStudent = Student.builder().build();
+        this.newStudent.setCourse(this.courses.stream().filter(
+                course -> course.getId().equals(courseId)).findAny().orElse(null));
+        model.addAttribute("newStudent", newStudent);
+        return "course/signup";
     }
 
     @PostMapping("/zapis")
     public String signedIn(@ModelAttribute Student newStudent,
                            @RequestParam Integer courseId) {
         System.out.println(courseId);
-        newStudent.setCourse(this.courses.stream().filter(
-                course -> course.getId().equals(courseId)).findAny().orElse(null));
         System.out.println(newStudent);
         return "redirect:/kurs/lista";
     }
