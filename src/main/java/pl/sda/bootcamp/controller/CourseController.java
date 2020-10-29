@@ -92,10 +92,13 @@ public class CourseController {
     }
 
     @PostMapping("/zapis")
-    public String signedIn(@ModelAttribute Student newStudent,
-                           @RequestParam Integer courseId) {
-        System.out.println(courseId);
+    public String signedIn(@ModelAttribute Student newStudent) {
         System.out.println(newStudent);
+        this.newStudent.setFirstName(newStudent.getFirstName());
+        this.newStudent.setLastName(newStudent.getLastName());
+        this.newStudent.setEmail(newStudent.getEmail());
+        this.newStudent.setPhone(newStudent.getPhone());
+        System.out.println(this.newStudent);
         return "redirect:/kurs/lista";
     }
 

@@ -43,7 +43,8 @@
                 </div>
             </div>
             <div id="signup-form-container">
-                <form th:action="@{'/kurs/zapis'}" th:object="${newStudent}" th:method="'post'">
+                <form th:action="@{'/kurs/zapis'}" th:object="${newStudent}"
+                      th:method="'post'">
                     <label for="first-name">Imię: </label>
                     <input type="text" id="first-name" th:field="*{firstName}"><br>
                     <label for="last-name">Nazwisko: </label>
@@ -52,7 +53,7 @@
                     <input type="text" id="email" th:field="*{email}"><br>
                     <label for="phone">Telefon: </label>
                     <input type="text" id="phone" th:field="*{phone}"><br>
-                    <input type="submit">
+                    <button>Wyślij zgłoszenie</button>
                 </form>
             </div>
         </div>

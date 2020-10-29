@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 nav {
     margin: 15px auto 10px;
     position: relative;
