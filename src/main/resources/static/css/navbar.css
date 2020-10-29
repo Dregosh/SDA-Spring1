@@ -3,13 +3,60 @@
 }
 
 nav {
+    display: flex;
     margin: 15px auto 10px;
-    position: relative;
     width: 93%;
     height: 50px;
     background-color: rgb(130, 167, 231);
     border-radius: 8px;
-    font-size: 0;
+}
+
+nav a {
+    line-height: 50px;
+    height: 100%;
+    font-size: 15px;
+    display: inline-block;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}
+
+nav a:nth-child(1) {
+    width: 100px;
+}
+
+nav a.current-link {
+    background-color: #1abc9c;
+    border-radius: 8px;
+}
+
+nav i.current-link {
+    color: orange;
+}
+
+nav a:nth-last-child(2) {
+    margin-left: auto;
+    font-size: 2.5rem;
+    padding-right: 20px;
+}
+
+nav a:nth-last-child(1) {
+    font-size: 2.5rem;
+    padding-right: 20px;
+}
+
+nav .fab, nav .fas {
+    transition: 0.3s all;
+}
+
+nav .fab:hover {
+    color: #1f3686;
+}
+
+nav .fas:hover {
+    color: orange;
 }
 
 @media (min-width: 576px) {
@@ -22,11 +69,17 @@ nav {
     nav {
         max-width: 720px;
     }
+    nav a:nth-last-child(2), nav a:nth-last-child(1) {
+        font-size: 2rem;
+    }
 }
 
 @media (min-width: 992px) {
     nav {
         max-width: 960px;
+    }
+    nav a:nth-last-child(2), nav a:nth-last-child(1) {
+        font-size: 1.75rem;
     }
 }
 
@@ -34,62 +87,7 @@ nav {
     nav {
         max-width: 1140px;
     }
-}
-
-nav a {
-    line-height: 50px;
-    height: 100%;
-    font-size: 15px;
-    display: inline-block;
-    position: relative;
-    z-index: 1;
-    text-decoration: none;
-    text-transform: uppercase;
-    text-align: center;
-    color: white;
-    cursor: pointer;
-}
-
-nav .animation {
-    position: absolute;
-    height: 100%;
-    top: 0;
-    z-index: 0;
-    transition: all .5s ease 0s;
-    border-radius: 8px;
-}
-
-nav a:nth-child(1) {
-    width: 100px;
-}
-
-nav a:nth-child(2) {
-    width: 150px;
-}
-
-nav a:nth-child(3) {
-    width: 70px;
-    float: right;
-    padding-top: 6px;
-}
-
-nav .onlink-course-list, a:nth-child(1):hover~.animation {
-    width: 100px;
-    left: 0;
-    background-color: #1abc9c;
-    border-radius: 8px;
-}
-
-nav .onlink-course-add, a:nth-child(2):hover~.animation {
-    width: 150px;
-    left: 100px;
-    background-color: #e74c3c;
-}
-
-nav .fab {
-    transition: 0.3s all;
-}
-
-nav .fab:hover {
-    color: #1f3686;
+    nav a:nth-last-child(2), nav a:nth-last-child(1) {
+        font-size: 1.5rem;
+    }
 }
