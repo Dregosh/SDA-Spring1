@@ -1,29 +1,31 @@
-* {
-    box-sizing: border-box;
-}
-
 nav {
     display: flex;
+    font-family: Arial, sans-serif;
     margin: 15px auto 10px;
     width: 93%;
     height: 50px;
     background-color: rgb(130, 167, 231);
     border-radius: 8px;
+    font-size: 4vw;
+}
+
+nav div.right-side {
+    margin-left: auto;
 }
 
 nav a {
     line-height: 50px;
     height: 100%;
-    font-size: 15px;
     display: inline-block;
     text-transform: uppercase;
     text-decoration: none;
     text-align: center;
     color: white;
     cursor: pointer;
+    transition: 0.3s all;
 }
 
-nav a:nth-child(1) {
+nav div.left-side a:nth-child(1) {
     width: 100px;
 }
 
@@ -36,58 +38,40 @@ nav i.current-link {
     color: orange;
 }
 
-nav a:nth-last-child(2) {
-    margin-left: auto;
-    font-size: 2.5rem;
-    padding-right: 20px;
-}
-
-nav a:nth-last-child(1) {
-    font-size: 2.5rem;
-    padding-right: 20px;
-}
-
-nav .fab, nav .fas {
+nav .fab,
+nav .fas {
     transition: 0.3s all;
+    padding-right: 15px;
 }
 
-nav .fab:hover {
-    color: #1f3686;
-}
-
-nav .fas:hover {
-    color: orange;
+nav a:hover {
+    color: mediumblue;
 }
 
 @media (min-width: 576px) {
     nav {
         max-width: 540px;
+        font-size: 3.25vw;
     }
 }
 
 @media (min-width: 768px) {
     nav {
         max-width: 720px;
-    }
-    nav a:nth-last-child(2), nav a:nth-last-child(1) {
-        font-size: 2rem;
+        font-size: 2.5vw;
     }
 }
 
 @media (min-width: 992px) {
     nav {
         max-width: 960px;
-    }
-    nav a:nth-last-child(2), nav a:nth-last-child(1) {
-        font-size: 1.75rem;
+        font-size: 1.75vw;
     }
 }
 
 @media (min-width: 1200px) {
     nav {
         max-width: 1140px;
-    }
-    nav a:nth-last-child(2), nav a:nth-last-child(1) {
-        font-size: 1.5rem;
+        font-size: 1vw;
     }
 }

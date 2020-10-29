@@ -17,4 +17,9 @@ public class HomeController {
     public String homePage() {
         return "forward:kurs/lista";
     }
+
+    @GetMapping("test")
+    public String test() {
+        return "course/test";
+    }
 }

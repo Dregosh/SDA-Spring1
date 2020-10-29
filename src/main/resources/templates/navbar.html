@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,16 +8,20 @@
 </head>
 <body>
 <nav>
-    <a th:href="@{/kurs/lista}" title="Lista wszystkich kursów"
-       th:classappend="${#httpServletRequest.requestURI == '/kurs/lista'} ?
+    <div class="left-side">
+        <a th:href="@{/kurs/lista}" title="Lista wszystkich kursów"
+           th:classappend="${#httpServletRequest.requestURI == '/kurs/lista'} ?
        'current-link'">Kursy</a>
-    <a th:href="@{/kurs/adminpanel}" title="Panel Administracyjny">
-        <i class="fas fa-user-cog"
-           th:classappend="${#httpServletRequest.requestURI == '/kurs/adminpanel'} ?
+    </div>
+    <div class="right-side">
+        <a th:href="@{/kurs/adminpanel}" title="Panel Administracyjny">
+            <i class="fas fa-user-cog"
+               th:classappend="${#httpServletRequest.requestURI == '/kurs/adminpanel'} ?
            'current-link'"></i></a>
-    <a href="https://github.com/Dregosh/SDA-Spring1"
-       title="Obejrzyj kod źródłowy tej aplikacji na Github"
-       target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://github.com/Dregosh/SDA-Spring1"
+           title="Obejrzyj kod źródłowy tej aplikacji na Github"
+           target="_blank"><i class="fab fa-github"></i></a>
+    </div>
 </nav>
 <script src="https://kit.fontawesome.com/8214f82e31.js" crossorigin="anonymous"></script>
 </body>
