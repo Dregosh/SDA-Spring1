@@ -6,7 +6,7 @@
     <title>Dodawanie kursu</title>
 </head>
 <body>
-
+<div th:insert="~{navbar}"></div>
 <p th:if="${createdCourse}"
    th:text="'Dodano nowy kurs ' + ${createdCourse.getName()} +
    ' w mieście ' + ${createdCourse.getCity()}"></p>

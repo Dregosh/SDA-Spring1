@@ -4,10 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Navbar</title>
+    <link th:href="@{/css/navbar.css}" rel="stylesheet"/>
 </head>
 <body>
-<div th:fragment="navbar">
-    <p>((navbar menu here...))</p>
-</div>
+<nav>
+    <a th:href="@{/kurs/lista}">Kursy</a>
+    <a th:href="@{/kurs/dodaj}">Dodaj kurs</a>
+    <a href="https://github.com/Dregosh/SDA-Spring1"
+       title="View source code on Github"
+       target="_blank"><i class="fab fa-github fa-2x"></i></a>
+    <th:block th:with="currentUrl = ${#httpServletRequest.requestURI}">
+    <div class="animation"
+         th:classappend="${(currentUrl == '/kurs/lista' ? 'onlink-course-list':'') +
+         (currentUrl == '/kurs/dodaj' ? 'onlink-course-add' : '')}"></div>
+    </th:block>
+</nav>
+<script src="https://kit.fontawesome.com/8214f82e31.js" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -16,4 +16,5 @@ public class Course {
     private LocalDate beginDate;
     private LocalDate endDate;
     private String mode;
+    private Integer price;
 }

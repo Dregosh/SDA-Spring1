@@ -25,6 +25,7 @@ public class CourseController {
                       .beginDate(LocalDate.of(2020, 11, 14))
                       .endDate(LocalDate.of(2021, 7, 18))
                       .mode("weekendowy")
+                      .price(7999)
                       .build(),
                 Course.builder().id(2)
                       .name("C++ od podstaw")
@@ -32,20 +33,23 @@ public class CourseController {
                       .beginDate(LocalDate.of(2020, 12, 7))
                       .endDate(LocalDate.of(2021, 8, 18))
                       .mode("weekendowy")
+                      .price(6999)
                       .build(),
                 Course.builder().id(3)
-                      .name("Frontend Developer")
+                      .name("Angular Developer")
                       .city("Szczecin")
                       .beginDate(LocalDate.of(2020, 12, 14))
                       .endDate(LocalDate.of(2021, 3, 15))
                       .mode("dzienny")
+                      .price(4999)
                       .build(),
                 Course.builder().id(4)
-                      .name("Python - analiza danych")
+                      .name("Tester manualny")
                       .city("Warszawa")
                       .beginDate(LocalDate.of(2021, 1, 14))
                       .endDate(LocalDate.of(2021, 5, 25))
                       .mode("dzienny")
+                      .price(4499)
                       .build()
         );
         this.cities = this.courses.stream()

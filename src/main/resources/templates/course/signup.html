@@ -7,6 +7,7 @@
     <link th:href="@{/css/signup.css}" rel="stylesheet"/>
 </head>
 <body>
+<div th:insert="~{navbar}"></div>
 <div id="content">
     <div class="courses-container">
         <h1>Twój wybrany kurs:</h1>
@@ -14,6 +15,10 @@
             <div class="course-header">
                 <div class="course-name"
                      th:text="${newStudent.course.name}">courseName
+                </div>
+                <div class="course-price strong"
+                     th:text="${'Cena: ' +
+                     #numbers.formatCurrency(newStudent.course.price)}">coursePrice
                 </div>
             </div>
             <div class="course-details">
@@ -36,26 +41,20 @@
                     <p class="strong" th:text="${newStudent.course.mode}">courseMode</p>
                 </div>
             </div>
+            <div id="signup-form-container">
+                <form th:action="@{'/kurs/zapis'}" th:object="${newStudent}" th:method="'post'">
+                    <label for="first-name">Imię: </label>
+                    <input type="text" id="first-name" th:field="*{firstName}"><br>
+                    <label for="last-name">Nazwisko: </label>
+                    <input type="text" id="last-name" th:field="*{lastName}"><br>
+                    <label for="email">E-mail: </label>
+                    <input type="text" id="email" th:field="*{email}"><br>
+                    <label for="phone">Telefon: </label>
+                    <input type="text" id="phone" th:field="*{phone}"><br>
+                    <input type="submit">
+                </form>
+            </div>
         </div>
-    </div>
-    <div>
-        <form th:action="@{'/kurs/zapis'}" th:object="${newStudent}" th:method="'post'">
-            <label for="first-name">Imię: </label>
-            <input type="text" id="first-name" th:field="*{firstName}"><br>
-            <label for="last-name">Nazwisko: </label>
-            <input type="text" id="last-name" th:field="*{lastName}"><br>
-            <label for="email">E-mail: </label>
-            <input type="text" id="email" th:field="*{email}"><br>
-            <label for="phone">Telefon: </label>
-            <input type="text" id="phone" th:field="*{phone}"><br>
-            <!--<label for="course-selector">Kurs: </label>
-            <select id="course-selector" name="courseId">
-                <option th:each="course: ${courses}" th:text="${course.getName()}"
-                        th:value="${course.getId()}"></option>
-            </select>-->
-            <br>
-            <input type="submit">
-        </form>
     </div>
 </div>
 </body>
