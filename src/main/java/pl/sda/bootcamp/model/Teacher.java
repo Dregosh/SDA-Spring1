@@ -7,11 +7,9 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 @Builder
-public class Student {
+public class Teacher {
     private Long id;
     private String firstName;
     private String lastName;
-    private String email;
-    private String phone;
-    private Course course;
+    private Double hourlyRate;
 }

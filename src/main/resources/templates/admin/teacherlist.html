@@ -6,7 +6,7 @@
     <title>Admin: Lista Trenerów</title>
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
     <link th:href="@{/css/adminpanel.css}" rel="stylesheet">
-    <link th:href="@{/css/admincourselist.css}" rel="stylesheet">
+    <link th:href="@{/css/admin/teacherlist.css}" rel="stylesheet">
 </head>
 <body>
 <div th:replace="navbar :: navbar"></div>
@@ -18,14 +18,18 @@
             <caption>Baza Trenerów (Tryb Administratora)</caption>
             <thead>
             <tr>
-                <th>#</th>
-                <th>Nazwisko i imię</th>
+                <th>ID</th>
+                <th>Nazwisko</th>
+                <th>Imię</th>
+                <th>Stawka godzinowa</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="teacher: ${teachers}">
-                <td>1</td>
-                <td th:text="${teacher}">courseName</td>
+                <td th:text="${teacher.id}">teacherId</td>
+                <td th:text="${teacher.lastName}">teacherLastName</td>
+                <td th:text="${teacher.firstName}">teacherFirstName</td>
+                <td th:text="${teacher.hourlyRate}">teacherHourlyRate</td>
             </tr>
             </tbody>
         </table>

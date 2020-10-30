@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Data
 @Builder
 public class Course {
-    private Integer id;
+    private Long id;
     private String name;
     private String city;
 
@@ -23,5 +23,5 @@ public class Course {
 
     private String mode;
     private Integer price;
-    private String teacher;
+    private Teacher teacher;
 }

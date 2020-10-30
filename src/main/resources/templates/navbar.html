@@ -14,7 +14,7 @@
        'current-link'">Kursy</a>
     </div>
     <div class="right-side">
-        <a th:href="@{/kurs/adminpanel}" title="Panel Administracyjny">
+        <a th:href="@{/admin}" title="Panel Administracyjny">
             <i class="fas fa-user-cog"
                th:classappend="${#httpServletRequest.requestURI.contains('admin')} ?
            'current-link'"></i></a>

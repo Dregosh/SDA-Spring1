@@ -12,9 +12,4 @@ public class HomeController {
     public String home() {
         return "redirect:kurs/lista";
     }
-
-    @GetMapping("strona-glowna")
-    public String homePage() {
-        return "forward:kurs/lista";
-    }
 }

@@ -16,15 +16,16 @@ div.courses-container {
 
 table {
     border-collapse: collapse;
+    font-size: small;
 }
 
 th {
-    padding: 10px 15px;
+    padding: 4px 6px;
     border: 2px solid black;
 }
 
 td {
-    padding: 10px 15px;
+    padding: 4px 6px;
     border: 1px solid black;
 }
 
@@ -47,6 +48,12 @@ td:first-child {
 @media (min-width: 992px) {
     div.courses-container {
         max-width: 960px;
+    }
+    table {
+        font-size: medium;
+    }
+    td, th {
+        padding: 5px 15px;
     }
 }
 
