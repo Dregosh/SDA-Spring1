@@ -1,26 +1,16 @@
 <!DOCTYPE html>
-<html lang="pl"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dodawanie kursu</title>
+    <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <link th:href="@{/css/adminpanel.css}" rel="stylesheet">
+    <link th:href="@{/css/add.css}" rel="stylesheet">
 </head>
 <body>
-<div th:insert="~{navbar}"></div>
-<p th:if="${createdCourse}"
-   th:text="'Dodano nowy kurs ' + ${createdCourse.getName()} +
-   ' w mieście ' + ${createdCourse.getCity()}"></p>
-
-<form th:action="@{'/kurs/dodaj'}" th:object="${course}" th:method="'post'">
-    <label for="course-name">Nazwa kursu: </label>
-    <input type="text" id="course-name" th:field="*{name}">
-    <label for="city-selector">Wybierz miasto: </label>
-    <select id="city-selector" th:field="*{city}">
-        <option th:each="city: ${cities}" th:text="${city}" th:value="${city}"></option>
-    </select>
-    <input type="submit" value="Zapisz kurs">
-</form>
-
+<div th:replace="navbar :: navbar"></div>
+<div th:replace="adminpanel :: adminpanel"></div>
+<p>Dodawanie kursu</p>
 </body>
 </html>

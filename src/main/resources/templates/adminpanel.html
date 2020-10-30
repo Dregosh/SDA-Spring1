@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administracyjny Kursów</title>
+    <link th:href="@{/css/adminpanel.css}" rel="stylesheet"/>
+</head>
+<body>
+<div id="adminbar-content" th:fragment="adminpanel">
+    <h2>Panel Administracyjny</h2>
+    <div class="adminbar-container">
+        <a th:href="@{/kurs/adminlistakursow}">
+            <div id="courses-base" class="adminbar-button">
+                <div class="button-text">Baza Kursów</div>
+            </div>
+        </a>
+        <a th:href="@{/kurs/adminlistatrenerow}">
+            <div id="teachers-base" class="adminbar-button">
+                <div class="button-text">Baza Trenerów</div>
+            </div>
+        </a>
+        <a href="#">
+            <div id="add-course" class="adminbar-button">
+                <div class="button-text">Dodaj kurs</div>
+            </div>
+        </a>
+        <a href="#">
+            <div id="add-teacher" class="adminbar-button">
+                <div class="button-text">Dodaj trenera</div>
+            </div>
+        </a>
+    </div>
+</div>
+</body>
+</html>

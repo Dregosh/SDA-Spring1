@@ -7,22 +7,23 @@
     <link th:href="@{/css/navbar.css}" rel="stylesheet"/>
 </head>
 <body>
-<nav>
+<nav th:fragment="navbar">
     <div class="left-side">
-        <a th:href="@{/kurs/lista}" title="Lista wszystkich kursów"
+        <a th:href="@{/kurs/lista}" title="Oferta kursów dostępnych dla klienta"
            th:classappend="${#httpServletRequest.requestURI == '/kurs/lista'} ?
        'current-link'">Kursy</a>
     </div>
     <div class="right-side">
         <a th:href="@{/kurs/adminpanel}" title="Panel Administracyjny">
             <i class="fas fa-user-cog"
-               th:classappend="${#httpServletRequest.requestURI == '/kurs/adminpanel'} ?
+               th:classappend="${#httpServletRequest.requestURI.contains('admin')} ?
            'current-link'"></i></a>
         <a href="https://github.com/Dregosh/SDA-Spring1"
            title="Obejrzyj kod źródłowy tej aplikacji na Github"
            target="_blank"><i class="fab fa-github"></i></a>
     </div>
+    <script src="https://kit.fontawesome.com/8214f82e31.js" crossorigin="anonymous">
+    </script>
 </nav>
-<script src="https://kit.fontawesome.com/8214f82e31.js" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin: Baza Kursów</title>
+    <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <link th:href="@{/css/adminpanel.css}" rel="stylesheet">
+    <link th:href="@{/css/admincourselist.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="navbar :: navbar"></div>
+<div th:replace="adminpanel :: adminpanel"></div>
+
+<div id="content">
+    <div class="courses-container">
+        <table>
+            <caption>Baza Kursów (Tryb Administratora)</caption>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nazwa kursu</th>
+                <th>Miasto</th>
+                <th>Start</th>
+                <th>Koniec</th>
+                <th>Tryb</th>
+                <th>Cena</th>
+                <th>Trener</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="course: ${courses}">
+                <td th:text="${course.id}">courseId</td>
+                <td th:text="${course.name}">courseName</td>
+                <td th:text="${course.city}">courseCity</td>
+                <td th:text="${course.beginDate}">courseBegin</td>
+                <td th:text="${course.endDate}">courseEnd</td>
+                <td th:text="${course.mode}">courseMode</td>
+                <td th:text="${course.price}">coursePrice</td>
+                <td th:text="${course.teacher}">courseTeacher</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

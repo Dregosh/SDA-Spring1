@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "/kurs")
@@ -19,18 +18,25 @@ public class CourseController {
     private List<String> teachers;
     private List<Course> courses;
     private Student newStudent;
+    private List<Student> students;
 
     public CourseController() {
         initializeCitiesList();
         initializeTeachersList();
         initializeCoursesList();
         this.newStudent = null;
+        this.students = new ArrayList<>();
     }
 
     @GetMapping("/lista")
     public String list(Model model) {
         model.addAttribute("courses", courses);
         return "course/list";
+    }
+
+    @GetMapping("/dodaj")
+    public String addCourseForm() {
+        return "course/add";
     }
 
     @PostMapping("/dodaj")
@@ -51,22 +57,30 @@ public class CourseController {
 
     @PostMapping("/zapis")
     public String signedIn(@ModelAttribute Student newStudent) {
-        System.out.println(newStudent);
         this.newStudent.setFirstName(newStudent.getFirstName());
         this.newStudent.setLastName(newStudent.getLastName());
         this.newStudent.setEmail(newStudent.getEmail());
         this.newStudent.setPhone(newStudent.getPhone());
-        System.out.println(this.newStudent);
+        this.students.add(this.newStudent);
+        System.out.println("Zapisał się nowy student: " + this.newStudent);
         return "redirect:/kurs/lista";
     }
 
     @GetMapping("/adminpanel")
-    public String adminPanel(Model model) {
+    public String adminPanel() {
+        return "redirect:/kurs/adminlistakursow";
+    }
+
+    @GetMapping("/adminlistakursow")
+    public String adminCourseList(Model model) {
         model.addAttribute("courses", courses);
-        model.addAttribute("cities", cities);
+        return "course/admincourselist";
+    }
+
+    @GetMapping("/adminlistatrenerow")
+    public String adminTeacherList(Model model) {
         model.addAttribute("teachers", teachers);
-        model.addAttribute("newCourse", Course.builder().build());
-        return "course/adminpanel";
+        return "course/adminteacherlist";
     }
 
     private void initializeCitiesList() {
