@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dodawanie kursu</title>
+    <title>Admin: Dodawanie kursu</title>
     <link th:href="@{/css/general.css}" rel="stylesheet"/>
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
     <link th:href="@{/css/adminpanel.css}" rel="stylesheet">
@@ -12,6 +12,55 @@
 <body>
 <div th:replace="navbar :: navbar"></div>
 <div th:replace="adminpanel :: adminpanel"></div>
-<p>Dodawanie kursu</p>
+<div id="content">
+    <div class="courses-container">
+        <h3>Dodawanie nowego kursu</h3>
+        <form class="course-add-form"
+              th:action="@{'/admin/dodajkurs'}" th:object="${newCourse}"
+              th:method="'post'">
+            <div class="form-grid">
+                <label for="course-name">Nazwa kursu: </label>
+                <input type="text" id="course-name" th:field="*{name}">
+
+                <label for="city-selector">Wybierz miasto: </label>
+                <select id="city-selector" th:field="*{city}">
+                    <option th:each="city: ${cities}" th:text="${city}"
+                            th:value="${city}">city</option>
+                </select>
+
+                <fieldset class="course-period">
+                    <legend>Okres kursu</legend>
+                    <label for="course-begin">Początek</label>
+                    <input type="date" id="course-begin" th:field="*{beginDate}">
+                    <label for="course-end">Koniec</label>
+                    <input type="date" id="course-end" th:field="*{endDate}">
+                </fieldset>
+
+                <fieldset>
+                    <legend>Tryb</legend>
+                    <div class="mode-grid">
+                        <input id="mode-daily" type="radio" value="dzienny"
+                               th:field="*{mode}">
+                        <label for="mode-daily">Dzienny </label>
+                        <input id="mode-weekends" type="radio" value="weekendowy"
+                               th:field="*{mode}">
+                        <label for="mode-weekends">Weekendowy </label>
+                    </div>
+                </fieldset>
+                <label for="course-price">Cena: </label>
+                <input type="number" id="course-price" th:field="*{price}">
+
+                <label for="course-teacher">Trener: </label>
+                <select id="course-teacher" th:name="selectedTeacherId">
+                    <option th:each="possibleTeacher: ${teachers}"
+                            th:value="${possibleTeacher.id}"
+                            th:text="${possibleTeacher.lastName + ' ' +
+                            possibleTeacher.firstName}">Trener</option>
+                </select>
+                <button>Zapisz kurs</button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

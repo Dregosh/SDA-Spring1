@@ -53,27 +53,7 @@ public class CourseController {
         this.newStudent.setEmail(newStudent.getEmail());
         this.newStudent.setPhone(newStudent.getPhone());
         this.studentService.getStudents().add(this.newStudent);
-        System.out.println("Zapisał się nowy student: " + this.newStudent);
+        System.out.println("Added new Student to DB: " + this.newStudent);
         return "redirect:/kurs/lista";
     }
-
-    /*@GetMapping("/lista")
-    public String list2(@RequestParam(required = false) String idKursu,
-                        Model model) {
-        model.addAttribute("id", idKursu);
-        return "course/list";
-    }*/
-
-    /*@GetMapping("/lista")
-    public String list(@RequestParam(required = false) String idKursu) {
-        System.out.println("Kurs o id: " + idKursu);
-        return "course/list";
-    }
-
-    @GetMapping("/lista/{idKursu}")
-    public String list2(@PathVariable int idKursu) {
-        System.out.println("Kurs o id: " + idKursu);
-        return "course/list";
-    }*/
-
 }

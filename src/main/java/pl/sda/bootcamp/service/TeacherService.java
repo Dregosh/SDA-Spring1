@@ -18,6 +18,13 @@ public class TeacherService {
         return this.teachers;
     }
 
+    public Teacher getTeacherById(Long id) {
+        return this.teachers.stream()
+                            .filter(t -> t.getId().equals(id))
+                            .findAny()
+                            .orElse(null);
+    }
+
     private void initializeTeachersList() {
         this.teachers = new ArrayList<>();
         this.teachers.add(Teacher.builder()

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin: Dodawanie trenera</title>
+    <link th:href="@{/css/general.css}" rel="stylesheet"/>
+    <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <link th:href="@{/css/adminpanel.css}" rel="stylesheet">
+    <link th:href="@{/css/admin/addteacher.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="navbar :: navbar"></div>
+<div th:replace="adminpanel :: adminpanel"></div>
+<div id="content">
+    <div class="courses-container">
+        <h3>Dodawanie nowego trenera</h3>
+        <form class="teacher-add-form"
+              th:action="@{'/admin/dodajtrenera'}" th:object="${newTeacher}"
+              th:method="'post'">
+            <div class="form-grid">
+                <label for="teacher-first-name">Imię: </label>
+                <input type="text" id="teacher-first-name" th:field="*{firstName}">
+
+                <label for="teacher-last-name">Nazwisko: </label>
+                <input type="text" id="teacher-last-name" th:field="*{lastName}">
+
+                <label for="teacher-hourly-rate">Stawka godzinowa: </label>
+                <input type="number" id="teacher-hourly-rate" th:field="*{hourlyRate}">
+
+                <button>Dodaj trenera</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

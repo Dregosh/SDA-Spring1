@@ -9,7 +9,7 @@
 <body>
 <nav th:fragment="navbar">
     <div class="left-side">
-        <a th:href="@{/kurs/lista}" title="Oferta kursów dostępnych dla klienta"
+        <a th:href="@{/kurs/lista}" title="Oferta dla klienta"
            th:classappend="${#httpServletRequest.requestURI == '/kurs/lista'} ?
        'current-link'">Kursy</a>
     </div>

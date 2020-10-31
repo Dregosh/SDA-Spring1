@@ -4,7 +4,7 @@ div.courses-container {
 
 .form-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto 1fr;
     gap: 1em 0.5em;
     align-items: center;
     padding: 1em;
@@ -14,7 +14,7 @@ div.courses-container {
     margin: 0 auto 15px;
 }
 
-input, select {
+input {
     grid-column: 2 / 3;
     width: 100%;
     margin: 0;
@@ -26,31 +26,6 @@ input, select {
 
 label {
     justify-self: flex-end;
-}
-
-fieldset {
-    border: 1px solid rgb(130, 167, 231);
-    border-radius: 8px;
-    justify-self: center;
-}
-
-div.mode-grid {
-    display: grid;
-    gap: 0.3em;
-    grid-template-columns: 1fr 3fr;
-    align-items: center;
-}
-
-input[type="radio"] {
-    grid-column: 1 / 2;
-}
-
-input[type="date"] {
-    margin: 5px 0 15px;
-}
-
-input[type="radio"] + label {
-    justify-self: flex-start;
 }
 
 form button {
@@ -82,12 +57,7 @@ form button:active {
 
 @media screen and (max-width: 992px) {
     .form-grid {
-        grid-template-columns: 30% 1fr;
         font-size: small;
-    }
-    fieldset {
-        grid-column: 2 / 3;
-        justify-self: center;
     }
     form button {
         font-size: medium;
