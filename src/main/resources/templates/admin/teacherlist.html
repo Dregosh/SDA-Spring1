@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin: Lista Trenerów</title>
+    <link th:href="@{/css/general.css}" rel="stylesheet"/>
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
     <link th:href="@{/css/adminpanel.css}" rel="stylesheet">
+    <link th:href="@{/css/admin/admintables.css}" rel="stylesheet">
     <link th:href="@{/css/admin/teacherlist.css}" rel="stylesheet">
 </head>
 <body>
@@ -18,18 +20,21 @@
             <caption>Baza Trenerów (Tryb Administratora)</caption>
             <thead>
             <tr>
-                <th>ID</th>
-                <th>Nazwisko</th>
-                <th>Imię</th>
-                <th>Stawka godzinowa</th>
+                <th scope="col">ID</th>
+                <th scope="col">Nazwisko</th>
+                <th scope="col">Imię</th>
+                <th scope="col">Stawka godzinowa</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="teacher: ${teachers}">
-                <td th:text="${teacher.id}">teacherId</td>
-                <td th:text="${teacher.lastName}">teacherLastName</td>
-                <td th:text="${teacher.firstName}">teacherFirstName</td>
-                <td th:text="${teacher.hourlyRate}">teacherHourlyRate</td>
+                <td data-label="ID" th:text="${teacher.id}">teacherId</td>
+                <td data-label="Nazwisko" th:text="${teacher.lastName}">teacherLastName
+                </td>
+                <td data-label="Imię" th:text="${teacher.firstName}">teacherFirstName</td>
+                <td data-label="Stawka godzinowa"
+                    th:text="${#numbers.formatCurrency(teacher.hourlyRate)}">
+                    teacherHourlyRate</td>
             </tr>
             </tbody>
         </table>

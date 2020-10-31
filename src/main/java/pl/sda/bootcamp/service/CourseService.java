@@ -2,6 +2,7 @@ package pl.sda.bootcamp.service;
 
 import org.springframework.stereotype.Service;
 import pl.sda.bootcamp.model.Course;
+import pl.sda.bootcamp.model.Teacher;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class CourseService {
                                .endDate(LocalDate.of(2021, 7, 18))
                                .mode("weekendowy")
                                .price(7999)
+                               .teacher(Teacher.builder().firstName("Adam")
+                                               .lastName("Kowalski").build())
                                .build());
         this.courses.add(Course.builder().id(2L)
                                .name("C++ od podstaw")
@@ -36,6 +39,8 @@ public class CourseService {
                                .endDate(LocalDate.of(2021, 8, 18))
                                .mode("weekendowy")
                                .price(6999)
+                               .teacher(Teacher.builder().firstName("Kamil")
+                                               .lastName("Kros").build())
                                .build());
         this.courses.add(Course.builder().id(3L)
                                .name("Angular Developer")
@@ -44,6 +49,8 @@ public class CourseService {
                                .endDate(LocalDate.of(2021, 3, 15))
                                .mode("dzienny")
                                .price(4999)
+                               .teacher(Teacher.builder().firstName("Jan")
+                                               .lastName("Nowak").build())
                                .build());
         this.courses.add(Course.builder().id(4L)
                                .name("Tester manualny")
@@ -52,6 +59,8 @@ public class CourseService {
                                .endDate(LocalDate.of(2021, 5, 25))
                                .mode("dzienny")
                                .price(4499)
+                               .teacher(Teacher.builder().firstName("Adam")
+                                               .lastName("Kowalski").build())
                                .build());
     }
 }
