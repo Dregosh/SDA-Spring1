@@ -34,12 +34,7 @@ public class CourseController {
     @GetMapping("/zapis/{courseId}")
     public String signIn(@PathVariable Long courseId, Model model) {
         this.newStudent = Student.builder().build();
-        List<Course> courses = this.courseService.getCourses();
-        Course chosenCourse =
-                courses.stream()
-                       .filter(course -> course.getId().equals(courseId))
-                       .findAny()
-                       .orElse(null);
+        Course chosenCourse = this.courseService.getCourse(courseId);
         this.newStudent.setCourse(chosenCourse);
         model.addAttribute("newStudent", newStudent);
         return "course/signup";
@@ -47,12 +42,11 @@ public class CourseController {
 
     @PostMapping("/zapis")
     public String signedIn(@ModelAttribute Student newStudent) {
-        this.newStudent.setId(this.studentService.getStudents().size() + 1L);
         this.newStudent.setFirstName(newStudent.getFirstName());
         this.newStudent.setLastName(newStudent.getLastName());
         this.newStudent.setEmail(newStudent.getEmail());
         this.newStudent.setPhone(newStudent.getPhone());
-        this.studentService.getStudents().add(this.newStudent);
+        this.studentService.addStudent(this.newStudent);
         System.out.println("Added new Student to DB: " + this.newStudent);
         return "redirect:/kurs/lista";
     }

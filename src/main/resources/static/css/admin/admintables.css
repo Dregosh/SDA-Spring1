@@ -18,7 +18,7 @@ table tr {
     padding: 0.35em;
 }
 
-table th, 
+table th,
 table td {
     padding: 0.625em;
     text-align: center;
@@ -28,6 +28,37 @@ table th {
     font-size: 0.85em;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+}
+
+table .delete-button {
+    max-width: 75%;
+    padding: 0.5em 1em;
+    text-transform: uppercase;
+    font-size: small;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    background-color: orange;
+    transition: 0.3s all;
+    cursor: pointer;
+}
+
+table .delete-button:hover {
+    background-color: red;
+}
+
+table .delete-button:focus {
+    outline: none;
+}
+table .inactive {
+    background-color: #aca9a9;
+    color: lightgrey;
+    border: 1px solid lightgrey;
+    cursor: default;
+}
+
+table .inactive:hover {
+    background-color: #aca9a9;
 }
 
 @media screen and (max-width: 992px) {
@@ -55,7 +86,6 @@ table th {
     table td {
         border-bottom: 1px solid #ddd;
         display: block;
-        /* font-size: 1.2em; */
         text-align: right;
     }
     table td::before {
@@ -66,5 +96,9 @@ table th {
     }
     table td:last-child {
         border-bottom: 0;
+    }
+    table .delete-button {
+        border-radius: 2px;
+        font-size: xx-small;
     }
 }

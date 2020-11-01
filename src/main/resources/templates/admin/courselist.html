@@ -28,6 +28,7 @@
                 <th scope="col">Tryb</th>
                 <th scope="col">Cena</th>
                 <th scope="col">Trener</th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -39,9 +40,18 @@
                 <td data-label="Koniec" th:text="${course.endDate}">courseEnd</td>
                 <td data-label="Tryb" th:text="${course.mode}">courseMode</td>
                 <td data-label="Cena"
-                    th:text="${#numbers.formatCurrency(course.price)}">coursePrice</td>
+                    th:text="${#numbers.formatCurrency(course.price)}">coursePrice
+                </td>
                 <td data-label="Trener" th:text="${course.teacher.lastName + ' ' +
-                    course.teacher.firstName}">courseTeacher</td>
+                    course.teacher.firstName}">courseTeacher
+                </td>
+                <td>
+                    <a th:href="@{/admin/usunkurs/{courseId}(courseId=${course.id})}">
+                        <button class="delete-button"
+                                th:classappend="${course.id <= 3} ? 'inactive'">Usuń kurs
+                        </button>
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>

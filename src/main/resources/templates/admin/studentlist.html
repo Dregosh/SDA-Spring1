@@ -8,7 +8,7 @@
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
     <link th:href="@{/css/adminpanel.css}" rel="stylesheet">
     <link th:href="@{/css/admin/admintables.css}" rel="stylesheet">
-    <link th:href="@{/css/admin/teacherlist.css}" rel="stylesheet">
+    <link th:href="@{/css/admin/studentlist.css}" rel="stylesheet">
 </head>
 <body>
 <div th:replace="navbar :: navbar"></div>
@@ -17,31 +17,32 @@
 <div id="content">
     <div class="courses-container">
         <table>
-            <caption>Baza Trenerów (Tryb Administratora)</caption>
+            <caption>Baza Studentów (Tryb Administratora)</caption>
             <thead>
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Nazwisko</th>
                 <th scope="col">Imię</th>
-                <th scope="col">Stawka godzinowa</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Telefon</th>
+                <th scope="col">Kurs</th>
                 <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="teacher: ${teachers}">
-                <td data-label="ID" th:text="${teacher.id}">teacherId</td>
-                <td data-label="Nazwisko" th:text="${teacher.lastName}">teacherLastName
+            <tr th:each="student: ${students}">
+                <td data-label="ID" th:text="${student.id}">studentId</td>
+                <td data-label="Nazwisko" th:text="${student.lastName}">studentLastName
                 </td>
-                <td data-label="Imię" th:text="${teacher.firstName}">teacherFirstName</td>
-                <td data-label="Stawka godzinowa"
-                    th:text="${#numbers.formatCurrency(teacher.hourlyRate)}">
-                    teacherHourlyRate
-                </td>
+                <td data-label="Imię" th:text="${student.firstName}">studentFirstName</td>
+                <td data-label="E-mail" th:text="${student.email}">studentEmail</td>
+                <td data-label="Phone" th:text="${student.phone}">studentPhone</td>
+                <td data-label="Kurs" th:text="${student.course.name}">studentCourse</td>
                 <td>
-                    <a th:href="@{/admin/usuntrenera/{teacherId}(teacherId=${teacher.id})}">
+                    <a th:href="@{/admin/usunstudenta/{studentId}(studentId=${student.id})}">
                         <button class="delete-button"
-                                th:classappend="${teacher.id <= 3} ? 'inactive'">Usuń
-                            trenera
+                                th:classappend="${student.id <= 3} ? 'inactive'">Usuń
+                            Studenta
                         </button>
                     </a>
                 </td>

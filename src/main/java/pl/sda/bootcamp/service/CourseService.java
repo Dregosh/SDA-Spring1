@@ -2,6 +2,7 @@ package pl.sda.bootcamp.service;
 
 import org.springframework.stereotype.Service;
 import pl.sda.bootcamp.model.Course;
+import pl.sda.bootcamp.model.Student;
 import pl.sda.bootcamp.model.Teacher;
 
 import java.time.LocalDate;
@@ -11,13 +12,43 @@ import java.util.List;
 @Service
 public class CourseService {
     private List<Course> courses;
+    private Long nextId;
 
     public CourseService() {
         this.initializeCoursesList();
+        this.nextId = 5L;
     }
 
     public List<Course> getCourses() {
         return this.courses;
+    }
+
+    public Course getCourse(Long id) {
+        return this.courses.stream()
+                            .filter(c -> c.getId().equals(id))
+                            .findAny()
+                            .orElse(null);
+    }
+
+    public void addCourse(Course course) {
+        course.setId(this.getNextIdAndIncrement());
+        this.courses.add(course);
+    }
+
+    public Course removeCourse(Long id) {
+        Course removedCourse = this.getCourse(id);
+        if (removedCourse != null) {
+            this.courses.remove(removedCourse);
+        }
+        return removedCourse;
+    }
+
+    public Long getNextIdAndIncrement() {
+        return nextId++;
+    }
+
+    public void setNextId(Long nextId) {
+        this.nextId = nextId;
     }
 
     private void initializeCoursesList() {
