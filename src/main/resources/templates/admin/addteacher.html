@@ -20,13 +20,16 @@
               th:method="'post'">
             <div class="form-grid">
                 <label for="teacher-first-name">Imię: </label>
-                <input type="text" id="teacher-first-name" th:field="*{firstName}">
+                <input type="text" id="teacher-first-name"
+                       th:field="*{firstName}" required>
 
                 <label for="teacher-last-name">Nazwisko: </label>
-                <input type="text" id="teacher-last-name" th:field="*{lastName}">
+                <input type="text" id="teacher-last-name"
+                       th:field="*{lastName}" required>
 
                 <label for="teacher-hourly-rate">Stawka godzinowa: </label>
-                <input type="number" id="teacher-hourly-rate" th:field="*{hourlyRate}">
+                <input type="number" id="teacher-hourly-rate"
+                       th:field="*{hourlyRate}" required>
 
                 <button>Dodaj trenera</button>
             </div>

@@ -10,31 +10,38 @@
 <div id="adminbar-content" th:fragment="adminpanel">
     <h2>Panel Administracyjny</h2>
     <div class="adminbar-container">
-        <a th:href="@{/admin/listakursow}">
-            <div id="courses-base" class="adminbar-button">
-                <div class="button-text">Baza Kursów</div>
-            </div>
-        </a>
-        <a th:href="@{/admin/listatrenerow}">
-            <div id="teachers-base" class="adminbar-button">
-                <div class="button-text">Baza Trenerów</div>
-            </div>
-        </a>
-        <a th:href="@{/admin/listastudentow}">
-            <div id="students-base" class="adminbar-button">
-                <div class="button-text">Baza Studentów</div>
-            </div>
-        </a>
-        <a th:href="@{/admin/dodajkurs}">
-            <div id="add-course" class="adminbar-button">
-                <div class="button-text">Dodaj kurs</div>
-            </div>
-        </a>
-        <a th:href="@{/admin/dodajtrenera}">
-            <div id="add-teacher" class="adminbar-button">
-                <div class="button-text">Dodaj trenera</div>
-            </div>
-        </a>
+        <th:block th:with="currentUrl=${#httpServletRequest.requestURI}">
+            <a th:href="@{/admin/listakursow}">
+                <div id="courses-base" class="adminbar-button"
+                     th:classappend="${currentUrl.contains('listakursow')} ? 'current'">
+                    <div class="button-text">Baza Kursów</div>
+                </div>
+            </a>
+            <a th:href="@{/admin/listatrenerow}">
+                <div id="teachers-base" class="adminbar-button"
+                     th:classappend="${currentUrl.contains('listatrenerow')} ? 'current'">
+                    <div class="button-text">Baza Trenerów</div>
+                </div>
+            </a>
+            <a th:href="@{/admin/listastudentow}">
+                <div id="students-base" class="adminbar-button"
+                     th:classappend="${currentUrl.contains('listastudentow')} ? 'current'">
+                    <div class="button-text">Baza Studentów</div>
+                </div>
+            </a>
+            <a th:href="@{/admin/dodajkurs}">
+                <div id="add-course" class="adminbar-button"
+                     th:classappend="${currentUrl.contains('dodajkurs')} ? 'current'">
+                    <div class="button-text">Dodaj kurs</div>
+                </div>
+            </a>
+            <a th:href="@{/admin/dodajtrenera}">
+                <div id="add-teacher" class="adminbar-button"
+                     th:classappend="${currentUrl.contains('dodajtrenera')} ? 'current'">
+                    <div class="button-text">Dodaj trenera</div>
+                </div>
+            </a>
+        </th:block>
     </div>
 </div>
 </body>

@@ -20,7 +20,7 @@
               th:method="'post'">
             <div class="form-grid">
                 <label for="course-name">Nazwa kursu: </label>
-                <input type="text" id="course-name" th:field="*{name}">
+                <input type="text" id="course-name" th:field="*{name}" required>
 
                 <label for="city-selector">Wybierz miasto: </label>
                 <select id="city-selector" th:field="*{city}">
@@ -31,24 +31,24 @@
                 <fieldset class="course-period">
                     <legend>Okres kursu</legend>
                     <label for="course-begin">Początek</label>
-                    <input type="date" id="course-begin" th:field="*{beginDate}">
+                    <input type="date" id="course-begin" th:field="*{beginDate}" required>
                     <label for="course-end">Koniec</label>
-                    <input type="date" id="course-end" th:field="*{endDate}">
+                    <input type="date" id="course-end" th:field="*{endDate}" required>
                 </fieldset>
 
                 <fieldset>
                     <legend>Tryb</legend>
                     <div class="mode-grid">
                         <input id="mode-daily" type="radio" value="dzienny"
-                               th:field="*{mode}">
+                               th:field="*{mode}" required>
                         <label for="mode-daily">Dzienny </label>
                         <input id="mode-weekends" type="radio" value="weekendowy"
-                               th:field="*{mode}">
+                               th:field="*{mode}" required>
                         <label for="mode-weekends">Weekendowy </label>
                     </div>
                 </fieldset>
                 <label for="course-price">Cena: </label>
-                <input type="number" id="course-price" th:field="*{price}">
+                <input type="number" id="course-price" th:field="*{price}" required>
 
                 <label for="course-teacher">Trener: </label>
                 <select id="course-teacher" th:name="selectedTeacherId">
