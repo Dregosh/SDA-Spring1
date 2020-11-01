@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podsumowanie zakupu</title>
+    <link th:href="@{/css/general.css}" rel="stylesheet"/>
+    <link th:href="@{/css/navbar.css}" rel="stylesheet"/>
+    <link th:href="@{/css/course/ordersummary.css}" rel="stylesheet"/>
+</head>
+<body>
+<div th:replace="navbar :: navbar"></div>
+<div id="content">
+    <div class="courses-container">
+        <h2>Witamy w gronie naszych studentów</h2>
+        <i class="far fa-grin-alt fa-3x"></i>
+        <div class="course-tile">
+            <p class="strong">Podsumowanie zamówienia</p>
+            <div class="data-wrapper">
+                <p class="title">Twoje dane</p>
+                <span class="label">Imię i nazwisko:</span>
+                <span class="data"
+                      th:text="${savedStudent.firstName} + ' ' +
+                      ${savedStudent.lastName}">studentFullName</span>
+                <span class="label">Email:</span>
+                <span class="data" th:text="${savedStudent.email}">studentEmail</span>
+                <span class="label">Telefon:</span>
+                <span class="data" th:text="${savedStudent.phone}">studentPhone</span>
+            </div>
+            <div class="data-wrapper">
+                <p class="title">Dane wybranego kursu</p>
+                <span class="label">Kurs:</span>
+                <span class="data"
+                      th:text="${savedStudent.course.name}">courseName</span>
+                <span class="label">Miasto:</span>
+                <span class="data"
+                      th:text="${savedStudent.course.city}">courseCity</span>
+                <span class="label">Data rozpoczęcia:</span>
+                <span class="data"
+                      th:text="${savedStudent.course.beginDate}">courseBegin</span>
+                <span class="label">Data zakończenia:</span>
+                <span class="data"
+                      th:text="${savedStudent.course.endDate}">courseEnd</span>
+                <span class="label">Tryb: </span>
+                <span class="data"
+                      th:text="${savedStudent.course.mode}">courseMode</span>
+                <span class="label">Cena: </span>
+                <span class="data"
+                      th:text="${#numbers.formatCurrency(
+                        savedStudent.course.price)}">coursePrice</span>
+                <span class="label">Trener: </span>
+                <span class="data"
+                      th:text="${savedStudent.course.teacher.firstName + ' ' +
+                      savedStudent.course.teacher.lastName}">courseTeacher</span>
+            </div>
+            <a th:href="@{/kurs/lista}">
+                <button>Powrót na stronę główną</button>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

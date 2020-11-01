@@ -41,13 +41,15 @@ public class CourseController {
     }
 
     @PostMapping("/zapis")
-    public String signedIn(@ModelAttribute Student newStudent) {
+    public String signedIn(@ModelAttribute Student newStudent,
+                           Model model) {
         this.newStudent.setFirstName(newStudent.getFirstName());
         this.newStudent.setLastName(newStudent.getLastName());
         this.newStudent.setEmail(newStudent.getEmail());
         this.newStudent.setPhone(newStudent.getPhone());
         this.studentService.addStudent(this.newStudent);
         System.out.println("Added new Student to DB: " + this.newStudent);
-        return "redirect:/kurs/lista";
+        model.addAttribute("savedStudent", this.newStudent);
+        return "course/ordersummary";
     }
 }
