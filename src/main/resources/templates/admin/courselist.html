@@ -40,8 +40,8 @@
                 <td data-label="Koniec" th:text="${course.endDate}">courseEnd</td>
                 <td data-label="Tryb" th:text="${course.mode}">courseMode</td>
                 <td data-label="Cena"
-                    th:text="${#numbers.formatCurrency(course.price)}">coursePrice
-                </td>
+                    th:text="${#numbers.formatDecimal(
+                    course.price, 1, 'WHITESPACE', 2, 'COMMA') + ' zł'}">coursePrice</td>
                 <td data-label="Trener" th:text="${course.teacher.lastName + ' ' +
                     course.teacher.firstName}">courseTeacher
                 </td>

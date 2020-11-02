@@ -34,8 +34,8 @@
                 </td>
                 <td data-label="Imię" th:text="${teacher.firstName}">teacherFirstName</td>
                 <td data-label="Stawka godzinowa"
-                    th:text="${#numbers.formatCurrency(teacher.hourlyRate)}">
-                    teacherHourlyRate
+                    th:text="${#numbers.formatDecimal(
+                    teacher.hourlyRate, 1, 'WHITESPACE', 2, 'COMMA') + ' zł'}">hourlyRate
                 </td>
                 <td>
                     <a th:href="@{/admin/usuntrenera/{teacherId}(teacherId=${teacher.id})}">

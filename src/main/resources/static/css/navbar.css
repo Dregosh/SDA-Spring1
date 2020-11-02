@@ -44,8 +44,13 @@ nav .fas {
     padding-right: 15px;
 }
 
-nav a:hover {
+div.right-side a:hover {
     color: mediumblue;
+}
+
+div.left-side a:hover {
+    background-color: #1abc9c;
+    border-radius: 8px;
 }
 
 @media (min-width: 576px) {
