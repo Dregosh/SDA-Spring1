@@ -27,6 +27,14 @@
                 <input type="text" id="teacher-last-name"
                        th:field="*{lastName}" required>
 
+                <label for="teacher-email">E-mail: </label>
+                <input type="text" id="teacher-email"
+                       th:field="*{email}" required>
+
+                <label for="teacher-phone">Telefon: </label>
+                <input type="text" id="teacher-phone"
+                       th:field="*{phone}" required>
+
                 <label for="teacher-hourly-rate">Stawka godzinowa: </label>
                 <input type="number" id="teacher-hourly-rate"
                        th:field="*{hourlyRate}" required>

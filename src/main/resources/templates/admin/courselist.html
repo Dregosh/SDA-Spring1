@@ -38,18 +38,18 @@
                 <td data-label="Miasto" th:text="${course.city}">courseCity</td>
                 <td data-label="Start" th:text="${course.beginDate}">courseBegin</td>
                 <td data-label="Koniec" th:text="${course.endDate}">courseEnd</td>
-                <td data-label="Tryb" th:text="${course.mode}">courseMode</td>
+                <td data-label="Tryb"
+                    th:text="${course.mode.getDescription()}">courseMode</td>
                 <td data-label="Cena"
                     th:text="${#numbers.formatDecimal(
                     course.price, 1, 'WHITESPACE', 2, 'COMMA') + ' zł'}">coursePrice</td>
-                <td data-label="Trener" th:text="${course.teacher.lastName + ' ' +
-                    course.teacher.firstName}">courseTeacher
+                <td data-label="Trener"
+                    th:text="${course.teacher.lastName +
+                 ' ' + course.teacher.firstName}">courseTeacher
                 </td>
                 <td>
                     <a th:href="@{/admin/usunkurs/{courseId}(courseId=${course.id})}">
-                        <button class="delete-button"
-                                th:classappend="${course.id <= 3} ? 'inactive'">Usuń kurs
-                        </button>
+                        <button class="delete-button">Usuń kurs</button>
                     </a>
                 </td>
             </tr>

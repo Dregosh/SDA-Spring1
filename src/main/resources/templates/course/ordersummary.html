@@ -27,7 +27,7 @@
                 <span class="label">Telefon:</span>
                 <span class="data" th:text="${savedStudent.phone}">studentPhone</span>
             </div>
-            <div class="data-wrapper">
+            <!--<div class="data-wrapper">
                 <p class="title">Dane wybranego kursu</p>
                 <span class="label">Kurs:</span>
                 <span class="data"
@@ -52,7 +52,7 @@
                 <span class="data"
                       th:text="${savedStudent.course.teacher.firstName + ' ' +
                       savedStudent.course.teacher.lastName}">courseTeacher</span>
-            </div>
+            </div>-->
             <a th:href="@{/kurs/lista}">
                 <button>Powrót na stronę główną</button>
             </a>

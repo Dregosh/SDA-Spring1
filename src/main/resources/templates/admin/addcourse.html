@@ -39,19 +39,21 @@
                 <fieldset>
                     <legend>Tryb</legend>
                     <div class="mode-grid">
-                        <input id="mode-daily" type="radio" value="dzienny"
+                        <th:block th:each="m: ${modes}">
+                        <input th:id="${m.getDescription()}"
+                               type="radio"
+                               th:value="${m}"
                                th:field="*{mode}" required>
-                        <label for="mode-daily">Dzienny </label>
-                        <input id="mode-weekends" type="radio" value="weekendowy"
-                               th:field="*{mode}" required>
-                        <label for="mode-weekends">Weekendowy </label>
+                        <label th:for="${m.getDescription()}"
+                               th:text="${m.getDescription()}">dzienny</label>
+                        </th:block>
                     </div>
                 </fieldset>
                 <label for="course-price">Cena: </label>
                 <input type="number" id="course-price" th:field="*{price}" required>
 
                 <label for="course-teacher">Trener: </label>
-                <select id="course-teacher" th:name="selectedTeacherId">
+                <select id="course-teacher" th:field="*{teacher}">
                     <option th:each="possibleTeacher: ${teachers}"
                             th:value="${possibleTeacher.id}"
                             th:text="${possibleTeacher.lastName + ' ' +

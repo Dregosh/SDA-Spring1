@@ -8,7 +8,7 @@
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
     <link th:href="@{/css/adminpanel.css}" rel="stylesheet">
     <link th:href="@{/css/admin/admintables.css}" rel="stylesheet">
-    <link th:href="@{/css/admin/studentlist.css}" rel="stylesheet">
+    <link th:href="@{/css/admin/alluserlist.css}" rel="stylesheet">
 </head>
 <body>
 <div th:replace="navbar :: navbar"></div>
@@ -17,34 +17,31 @@
 <div id="content">
     <div class="courses-container">
         <table>
-            <caption>Baza Studentów (Tryb Administratora)</caption>
+            <caption>Wszyscy Użytkownicy w Bazie (Tryb Administratora)</caption>
             <thead>
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Nazwisko</th>
                 <th scope="col">Imię</th>
-                <th scope="col">E-mail</th>
-                <th scope="col">Telefon</th>
-                <th scope="col">Kursy</th>
+                <th scope="col">Rola</th>
                 <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="student: ${students}">
-                <td data-label="ID" th:text="${student.id}">studentId</td>
-                <td data-label="Nazwisko" th:text="${student.lastName}">studentLastName
-                </td>
-                <td data-label="Imię" th:text="${student.firstName}">studentFirstName</td>
-                <td data-label="E-mail" th:text="${student.email}">studentEmail</td>
-                <td data-label="Phone" th:text="${student.phone}">studentPhone</td>
-                <td data-label="Kursy">
-                    <p th:each="c: ${student.courses}"
-                          th:text="${c.name}">courseNamesList</p>
-                </td>
+            <tr th:each="user: ${allUsers}">
+                <td data-label="ID"
+                    th:text="${user.id}">userId</td>
+                <td data-label="Nazwisko"
+                    th:text="${user.lastName}">userLastName</td>
+                <td data-label="Imię"
+                    th:text="${user.firstName}">userFirstName</td>
+                <td data-label="Rola"
+                    th:text="${user.role.roleName}">userRole</td>
                 <td>
-                    <a th:href="@{/admin/usunstudenta/{studentId}(studentId=${student.id})}">
+                    <!--<a th:href="@{/admin/usuntrenera/{teacherId}
+                    (teacherId=${teacher.id})}">
                         <button class="delete-button">Usuń</button>
-                    </a>
+                    </a>-->
                 </td>
             </tr>
             </tbody>

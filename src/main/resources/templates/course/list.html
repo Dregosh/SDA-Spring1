@@ -37,7 +37,8 @@
                 </div>
                 <div class="course-detail-tile">
                     <p>Tryb</p>
-                    <p class="strong" th:text="${course.mode}">courseMode</p>
+                    <p class="strong"
+                       th:text="${course.mode.getDescription()}">courseMode</p>
                 </div>
             </div>
         </div>

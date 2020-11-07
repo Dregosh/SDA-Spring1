@@ -24,25 +24,31 @@
                 <th scope="col">Nazwisko</th>
                 <th scope="col">Imię</th>
                 <th scope="col">Stawka godzinowa</th>
+                <th scope="col">Prowadzi kursy</th>
                 <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="teacher: ${teachers}">
-                <td data-label="ID" th:text="${teacher.id}">teacherId</td>
-                <td data-label="Nazwisko" th:text="${teacher.lastName}">teacherLastName
+                <td data-label="ID"
+                    th:text="${teacher.id}">teacherId</td>
+                <td data-label="Nazwisko"
+                    th:text="${teacher.lastName}">teacherLastName
                 </td>
-                <td data-label="Imię" th:text="${teacher.firstName}">teacherFirstName</td>
+                <td data-label="Imię"
+                    th:text="${teacher.firstName}">teacherFirstName</td>
                 <td data-label="Stawka godzinowa"
                     th:text="${#numbers.formatDecimal(
                     teacher.hourlyRate, 1, 'WHITESPACE', 2, 'COMMA') + ' zł'}">hourlyRate
                 </td>
+                <td data-label="Prowadzi kursy">
+                    <p th:each="c: ${teacher.teacherForCourses}"
+                       th:text="${c.name}">leadsCourses</p>
+                </td>
                 <td>
-                    <a th:href="@{/admin/usuntrenera/{teacherId}(teacherId=${teacher.id})}">
-                        <button class="delete-button"
-                                th:classappend="${teacher.id <= 3} ? 'inactive'">Usuń
-                            trenera
-                        </button>
+                    <a th:href="@{/admin/usuntrenera/{teacherId}
+                    (teacherId=${teacher.id})}">
+                        <button class="delete-button">Usuń</button>
                     </a>
                 </td>
             </tr>

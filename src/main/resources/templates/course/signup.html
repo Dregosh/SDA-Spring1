@@ -17,31 +17,33 @@
         <div class="course-tile">
             <div class="course-header">
                 <div class="course-name"
-                     th:text="${newStudent.course.name}">courseName
+                     th:text="${chosenCourse.name}">courseName
                 </div>
                 <div class="course-price strong"
                      th:text="${'Cena: ' +
-                     #numbers.formatCurrency(newStudent.course.price)}">coursePrice
+                     #numbers.formatCurrency(chosenCourse.price)}">coursePrice
                 </div>
             </div>
             <div class="course-details">
                 <div class="course-detail-tile">
                     <p>Miasto</p>
-                    <p class="strong" th:text="${newStudent.course.city}">courseCity</p>
+                    <p class="strong"
+                       th:text="${chosenCourse.city}">courseCity</p>
                 </div>
                 <div class="course-detail-tile">
                     <p>Data rozpoczęcia</p>
                     <p class="strong"
-                       th:text="${newStudent.course.beginDate}">courseBegin</p>
+                       th:text="${chosenCourse.beginDate}">courseBegin</p>
                 </div>
                 <div class="course-detail-tile">
                     <p>Data zakończenia</p>
                     <p class="strong"
-                       th:text="${newStudent.course.endDate}">courseEnd</p>
+                       th:text="${chosenCourse.endDate}">courseEnd</p>
                 </div>
                 <div class="course-detail-tile">
                     <p>Tryb</p>
-                    <p class="strong" th:text="${newStudent.course.mode}">courseMode</p>
+                    <p class="strong"
+                       th:text="${chosenCourse.mode.getDescription()}">courseMode</p>
                 </div>
             </div>
             <div id="signup-form-container">

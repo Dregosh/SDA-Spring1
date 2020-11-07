@@ -5,50 +5,57 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.bootcamp.model.Course;
 import pl.sda.bootcamp.model.Student;
+import pl.sda.bootcamp.model.User;
 import pl.sda.bootcamp.service.CourseService;
-import pl.sda.bootcamp.service.StudentService;
+import pl.sda.bootcamp.service.RoleService;
+import pl.sda.bootcamp.service.UserService;
 
-import java.util.List;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/kurs")
 public class CourseController {
     private final CourseService courseService;
-    private final StudentService studentService;
+    private final UserService userService;
+    private final RoleService roleService;
 
-    private Student newStudent;
+    private User newStudent;
 
     public CourseController(CourseService courseService,
-                            StudentService studentService) {
+                            UserService userService,
+                            RoleService roleService) {
         this.courseService = courseService;
-        this.studentService = studentService;
-        this.newStudent = null;
+        this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping("/lista")
     public String list(Model model) {
-        model.addAttribute("courses", courseService.getCourses());
+        model.addAttribute("courses", courseService.getAllCourses());
         return "course/list";
     }
 
     @GetMapping("/zapis/{courseId}")
     public String signIn(@PathVariable Long courseId, Model model) {
-        this.newStudent = Student.builder().build();
+        this.newStudent = User.builder().build();
         Course chosenCourse = this.courseService.getCourse(courseId);
-        this.newStudent.setCourse(chosenCourse);
+        this.newStudent.setCourses(new ArrayList<>());
+        this.newStudent.getCourses().add(chosenCourse);
+        model.addAttribute("chosenCourse", chosenCourse);
         model.addAttribute("newStudent", newStudent);
         return "course/signup";
     }
 
     @PostMapping("/zapis")
-    public String signedIn(@ModelAttribute Student newStudent,
+    public String signedIn(@ModelAttribute User newStudent,
                            Model model) {
         this.newStudent.setFirstName(newStudent.getFirstName());
         this.newStudent.setLastName(newStudent.getLastName());
         this.newStudent.setEmail(newStudent.getEmail());
         this.newStudent.setPhone(newStudent.getPhone());
-        this.studentService.addStudent(this.newStudent);
-        System.out.println("Added new Student to DB: " + this.newStudent);
+        this.newStudent.setRole(this.roleService.findByRoleName("user"));
+        this.newStudent.setHourlyRate(0.0);
+        this.userService.addUser(this.newStudent);
         model.addAttribute("savedStudent", this.newStudent);
         return "course/ordersummary";
     }

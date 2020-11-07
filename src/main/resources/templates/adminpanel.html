@@ -17,6 +17,12 @@
                     <div class="button-text">Baza Kursów</div>
                 </div>
             </a>
+            <a th:href="@{/admin/wszyscyuzytkownicy}">
+                <div id="all-users-base" class="adminbar-button"
+                     th:classappend="${currentUrl.contains('wszyscy')} ? 'current'">
+                    <div class="button-text">Wszyscy Użytkownicy</div>
+                </div>
+            </a>
             <a th:href="@{/admin/listatrenerow}">
                 <div id="teachers-base" class="adminbar-button"
                      th:classappend="${currentUrl.contains('listatrenerow')} ? 'current'">
@@ -39,6 +45,12 @@
                 <div id="add-teacher" class="adminbar-button"
                      th:classappend="${currentUrl.contains('dodajtrenera')} ? 'current'">
                     <div class="button-text">Dodaj trenera</div>
+                </div>
+            </a>
+            <a th:href="@{/admin/dodajstudenta}">
+                <div id="add-student" class="adminbar-button"
+                     th:classappend="${currentUrl.contains('dodajstudenta')} ? 'current'">
+                    <div class="button-text">Dodaj studenta</div>
                 </div>
             </a>
         </th:block>

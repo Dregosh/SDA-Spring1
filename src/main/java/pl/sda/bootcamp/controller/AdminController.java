@@ -3,39 +3,27 @@ package pl.sda.bootcamp.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.sda.bootcamp.model.Course;
-import pl.sda.bootcamp.model.Student;
-import pl.sda.bootcamp.model.Teacher;
-import pl.sda.bootcamp.service.CityService;
-import pl.sda.bootcamp.service.CourseService;
-import pl.sda.bootcamp.service.StudentService;
-import pl.sda.bootcamp.service.TeacherService;
+import pl.sda.bootcamp.model.*;
+import pl.sda.bootcamp.service.*;
 
-import java.util.List;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    public static final int UNREMOVABLE_THRESHOLD = 3;
-
+    private final UserService userService;
     private final CourseService courseService;
-    private final TeacherService teacherService;
-    private final StudentService studentService;
     private final CityService cityService;
+    private final RoleService roleService;
 
-    private Course newCourse;
-    private Teacher newTeacher;
-
-    public AdminController(CourseService courseService,
-                           TeacherService teacherService,
-                           StudentService studentService,
-                           CityService cityService) {
+    public AdminController(UserService userService,
+                           CourseService courseService,
+                           CityService cityService,
+                           RoleService roleService) {
+        this.userService = userService;
         this.courseService = courseService;
-        this.teacherService = teacherService;
-        this.studentService = studentService;
         this.cityService = cityService;
-        this.newCourse = null;
-        this.newTeacher = null;
+        this.roleService = roleService;
     }
 
     @GetMapping
@@ -45,80 +33,87 @@ public class AdminController {
 
     @GetMapping("/listakursow")
     public String adminCourseList(Model model) {
-        model.addAttribute("courses", this.courseService.getCourses());
+        model.addAttribute("courses", this.courseService.getAllCourses());
         return "admin/courselist";
+    }
+
+    @GetMapping("/wszyscyuzytkownicy")
+    public String allUsersList(Model model) {
+        model.addAttribute("allUsers", this.userService.getAllUsers());
+        return "admin/alluserlist";
     }
 
     @GetMapping("/listatrenerow")
     public String adminTeacherList(Model model) {
-        model.addAttribute("teachers", this.teacherService.getTeachers());
+        model.addAttribute("teachers", this.userService.getAllTeachers());
         return "admin/teacherlist";
     }
 
     @GetMapping("/listastudentow")
     public String adminStudentList(Model model) {
-        model.addAttribute("students", this.studentService.getStudents());
+        model.addAttribute("students", this.userService.getAllStudents());
         return "admin/studentlist";
     }
 
     @GetMapping("/dodajkurs")
     public String addCourseForm(Model model) {
         model.addAttribute("newCourse", Course.builder().build());
+        model.addAttribute("modes", Mode.values());
         model.addAttribute("cities", cityService.getCities());
-        model.addAttribute("teachers", teacherService.getTeachers());
+        model.addAttribute("teachers", this.userService.getAllTeachers());
         return "admin/addcourse";
     }
 
     @PostMapping("/dodajkurs")
-    public String addCourseToDB(@ModelAttribute Course course,
-                                @RequestParam Long selectedTeacherId) {
-        this.newCourse = course;
-        this.newCourse.setTeacher(this.teacherService.getTeacher(selectedTeacherId));
-        this.courseService.addCourse(this.newCourse);
-        System.out.println("Added new Course to DB: " + this.newCourse);
-        this.newCourse = null;
+    public String addCourseToDB(@ModelAttribute Course course) {
+        this.courseService.addCourse(course);
         return "redirect:/admin/listakursow";
     }
 
     @GetMapping("/usunkurs/{courseId}")
     public String removeCourse(@PathVariable Long courseId) {
-        if (courseId > UNREMOVABLE_THRESHOLD) {
-            Course removedCourse = this.courseService.removeCourse(courseId);
-            System.out.println("Removed Course from DB: " + removedCourse);
-        }
+        // TODO
         return "redirect:/admin/listakursow";
     }
 
     @GetMapping("/dodajtrenera")
     public String addTeacherForm(Model model) {
-        model.addAttribute("newTeacher", Teacher.builder().build());
+        model.addAttribute("newTeacher", User.builder().build());
         return "admin/addteacher";
     }
 
     @PostMapping("/dodajtrenera")
-    public String addTeacherToDB(@ModelAttribute Teacher teacher) {
-        this.newTeacher = teacher;
-        this.teacherService.addTeacher(this.newTeacher);
-        System.out.println("Added new Teacher to DB: " + this.newTeacher);
-        this.newTeacher = null;
+    public String addTeacherToDB(@ModelAttribute User newTeacher) {
+        newTeacher.setCourses(new ArrayList<>());
+        newTeacher.setRole(this.roleService.findByRoleName("teacher"));
+        this.userService.addUser(newTeacher);
         return "redirect:/admin/listatrenerow";
     }
 
     @GetMapping("/usuntrenera/{teacherId}")
     public String removeTeacher(@PathVariable Long teacherId) {
-        if (teacherId > UNREMOVABLE_THRESHOLD) {
-            Teacher removedTeacher = this.teacherService.removeTeacher(teacherId);
-            System.out.println("Removed Teacher from DB: " + removedTeacher);
-        }
+        // TODO
         return "redirect:/admin/listatrenerow";
+    }
+
+    @GetMapping("/dodajstudenta")
+    public String addStudent(Model model) {
+        model.addAttribute("newStudent", User.builder().build());
+        model.addAttribute("coursesList", this.courseService.getAllCourses());
+        return "admin/addstudent";
+    }
+
+    @PostMapping("/dodajstudenta")
+    public String processNewStudent(@ModelAttribute("newStudent") User user) {
+        user.setRole(this.roleService.findByRoleName("user"));
+        user.setHourlyRate(0.0);
+        this.userService.addUser(user);
+        return "redirect:/admin/listastudentow";
     }
 
     @GetMapping("/usunstudenta/{studentId}")
     public String removeStudent(@PathVariable Long studentId) {
-        if (studentId > UNREMOVABLE_THRESHOLD) {
-            Student removedStudent = this.studentService.removeStudent(studentId);
-            System.out.println("Removed Student from DB: " + removedStudent);
-        }
+        // TODO
         return "redirect:/admin/listastudentow";
     }
 }
