@@ -1,9 +1,6 @@
 package pl.sda.bootcamp.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -13,7 +10,8 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class Course {
     @Id
@@ -40,17 +38,4 @@ public class Course {
 
     @ManyToMany(mappedBy = "courses")
     private List<User> users;
-
-    @Override
-    public String toString() {
-        return "Course{" +
-               "id=" + id +
-               ", name='" + name + '\'' +
-               ", city='" + city + '\'' +
-               ", beginDate=" + beginDate +
-               ", endDate=" + endDate +
-               ", mode=" + mode +
-               ", price=" + price +
-               '}';
-    }
 }

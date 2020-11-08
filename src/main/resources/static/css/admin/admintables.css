@@ -31,6 +31,7 @@ table th {
 }
 
 table .delete-button {
+    margin-top: 0.3em;
     max-width: 75%;
     padding: 0.5em 1em;
     text-transform: uppercase;
@@ -50,6 +51,24 @@ table .delete-button:hover {
 table .delete-button:focus {
     outline: none;
 }
+
+table .edit-button {
+    max-width: 75%;
+    padding: 0.5em 1em;
+    text-transform: uppercase;
+    font-size: small;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    background-color: green;
+    transition: 0.3s all;
+    cursor: pointer;
+}
+
+table .edit-button:hover {
+    background-color: lightgreen;
+}
+
 table .inactive {
     background-color: #aca9a9;
     color: lightgrey;

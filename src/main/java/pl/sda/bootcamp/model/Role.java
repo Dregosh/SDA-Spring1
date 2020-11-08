@@ -1,14 +1,16 @@
 package pl.sda.bootcamp.model;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,12 +20,4 @@ public class Role {
 
     @OneToMany(mappedBy = "role")
     private List<User> users;
-
-    @Override
-    public String toString() {
-        return "Role{" +
-               "id=" + id +
-               ", roleName='" + roleName + '\'' +
-               '}';
-    }
 }

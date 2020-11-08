@@ -1,5 +1,6 @@
 package pl.sda.bootcamp.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,8 @@ public class AdminController {
     private final CityService cityService;
     private final RoleService roleService;
 
+    private User currentUser;
+
     public AdminController(UserService userService,
                            CourseService courseService,
                            CityService cityService,
@@ -24,6 +27,7 @@ public class AdminController {
         this.courseService = courseService;
         this.cityService = cityService;
         this.roleService = roleService;
+        this.currentUser = null;
     }
 
     @GetMapping
@@ -90,9 +94,24 @@ public class AdminController {
         return "redirect:/admin/listatrenerow";
     }
 
+    @GetMapping("/user/edit/{userId}")
+    public String editUser(@PathVariable Long userId,
+                           Model model) {
+        /*this.currentUser = this.userService.getUserById(userId);
+        model.addAttribute("newTeacher", currentUser);
+        return "admin/addTeacher";*/
+        return "redirect:/admin/wszyscyuzytkownicy";
+    }
+
+    @GetMapping("/user/delete/{userId}")
+    public String removeUser(@PathVariable Long userId) {
+        this.userService.deleteUserById(userId);
+        return "redirect:/admin/wszyscyuzytkownicy";
+    }
+
     @GetMapping("/usuntrenera/{teacherId}")
     public String removeTeacher(@PathVariable Long teacherId) {
-        // TODO
+        this.userService.deleteUserById(teacherId);
         return "redirect:/admin/listatrenerow";
     }
 

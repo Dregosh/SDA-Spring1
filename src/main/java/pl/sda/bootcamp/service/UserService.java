@@ -2,8 +2,12 @@ package pl.sda.bootcamp.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import pl.sda.bootcamp.model.Course;
 import pl.sda.bootcamp.model.User;
+import pl.sda.bootcamp.repository.CourseRepository;
 import pl.sda.bootcamp.repository.UserRepository;
+
 
 import java.util.List;
 
@@ -11,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final CourseRepository courseRepository;
 
     public List<User> getAllUsers() {
         return this.userRepository.findAll();
@@ -34,5 +39,15 @@ public class UserService {
 
     public void addUser(User user) {
         this.userRepository.save(user);
+    }
+
+    @Transactional
+    public void deleteUserById(Long id) {
+        User user = this.userRepository.findById(id).orElse(null);
+        for (Course course : user.getTeacherForCourses()) {
+            course.setTeacher(null);
+            this.courseRepository.save(course);
+        }
+        this.userRepository.deleteById(id);
     }
 }

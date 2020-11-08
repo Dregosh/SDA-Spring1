@@ -38,10 +38,12 @@
                 <td data-label="Rola"
                     th:text="${user.role.roleName}">userRole</td>
                 <td>
-                    <!--<a th:href="@{/admin/usuntrenera/{teacherId}
-                    (teacherId=${teacher.id})}">
+                    <a th:href="@{/admin/user/edit/{userId}(userId=${user.id})}">
+                        <button class="edit-button">Edytuj</button>
+                    </a>
+                    <a th:href="@{/admin/user/delete/{userId}(userId=${user.id})}">
                         <button class="delete-button">Usuń</button>
-                    </a>-->
+                    </a>
                 </td>
             </tr>
             </tbody>

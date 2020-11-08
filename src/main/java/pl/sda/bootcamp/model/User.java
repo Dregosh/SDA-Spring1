@@ -1,9 +1,6 @@
 package pl.sda.bootcamp.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,7 +8,8 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class User {
     @Id
@@ -37,16 +35,4 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
-
-    @Override
-    public String toString() {
-        return "User{" +
-               "id=" + id +
-               ", firstName='" + firstName + '\'' +
-               ", lastName='" + lastName + '\'' +
-               ", email='" + email + '\'' +
-               ", phone='" + phone + '\'' +
-               ", hourlyRate=" + hourlyRate +
-               '}';
-    }
 }

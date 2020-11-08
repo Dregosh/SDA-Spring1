@@ -27,6 +27,7 @@ public class CourseController {
         this.courseService = courseService;
         this.userService = userService;
         this.roleService = roleService;
+        this.newStudent = null;
     }
 
     @GetMapping("/lista")

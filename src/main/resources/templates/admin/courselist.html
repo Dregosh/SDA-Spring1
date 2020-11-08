@@ -44,12 +44,17 @@
                     th:text="${#numbers.formatDecimal(
                     course.price, 1, 'WHITESPACE', 2, 'COMMA') + ' zł'}">coursePrice</td>
                 <td data-label="Trener"
-                    th:text="${course.teacher.lastName +
-                 ' ' + course.teacher.firstName}">courseTeacher
-                </td>
+                    th:if="${course.teacher}"
+                    th:text="${course.teacher.lastName + ' ' +
+                    course.teacher.firstName}">courseTeacher</td>
+                <td data-label="Trener"
+                    th:unless="${course.teacher}">brak trenera</td>
                 <td>
+                    <a th:href="@{/admin/edytujkurs/{courseId}(courseId=${course.id})}">
+                        <button class="edit-button">Edytuj</button>
+                    </a>
                     <a th:href="@{/admin/usunkurs/{courseId}(courseId=${course.id})}">
-                        <button class="delete-button">Usuń kurs</button>
+                        <button class="delete-button">Usuń</button>
                     </a>
                 </td>
             </tr>
