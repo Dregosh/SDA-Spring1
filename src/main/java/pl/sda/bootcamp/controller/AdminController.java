@@ -7,28 +7,18 @@ import org.springframework.web.bind.annotation.*;
 import pl.sda.bootcamp.model.*;
 import pl.sda.bootcamp.service.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/admin")
 public class AdminController {
     private final UserService userService;
     private final CourseService courseService;
     private final CityService cityService;
     private final RoleService roleService;
-
-    private User currentUser;
-
-    public AdminController(UserService userService,
-                           CourseService courseService,
-                           CityService cityService,
-                           RoleService roleService) {
-        this.userService = userService;
-        this.courseService = courseService;
-        this.cityService = cityService;
-        this.roleService = roleService;
-        this.currentUser = null;
-    }
 
     @GetMapping
     public String adminPanel() {
@@ -96,10 +86,30 @@ public class AdminController {
 
     @GetMapping("/user/edit/{userId}")
     public String editUser(@PathVariable Long userId,
-                           Model model) {
-        /*this.currentUser = this.userService.getUserById(userId);
-        model.addAttribute("newTeacher", currentUser);
-        return "admin/addTeacher";*/
+                           Model model,
+                           final HttpSession session) {
+        User user = this.userService.getUserById(userId);
+        session.setAttribute("user_id", user.getId());
+        model.addAttribute("coursesList", this.courseService.getAllCourses());
+        model.addAttribute("user", user);
+        if (user.getRole().getRoleName().equals("teacher")) {
+            return "admin/editteacher";
+        } else {
+            return "admin/editstudent";
+        }
+    }
+
+    @PostMapping("/user/edit/{userId}")
+    public String saveEditedTeacher(@PathVariable Long userId,
+                                    final HttpServletRequest httpServletRequest,
+                                    @ModelAttribute User user) {
+        if (httpServletRequest.getSession().getAttribute("user_id").equals(userId)
+        && user.getRole().getRoleName().equals("teacher")) {
+            this.userService.updateTeacher(user);
+        } else {
+            this.userService.addUser(user);
+        }
+        httpServletRequest.getSession().invalidate();   //czysci sesje
         return "redirect:/admin/wszyscyuzytkownicy";
     }
 

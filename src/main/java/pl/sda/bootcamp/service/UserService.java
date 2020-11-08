@@ -42,6 +42,20 @@ public class UserService {
     }
 
     @Transactional
+    public void updateTeacher(User user) {
+        this.courseRepository.findAll().forEach(course -> {
+            if (user.getTeacherForCourses().contains(course)) {
+                course.setTeacher(user);
+            } else if (course.getTeacher() != null &&
+                       user.getId().equals(course.getTeacher().getId())) {
+                course.setTeacher(null);
+            }
+            this.courseRepository.save(course);
+        });
+        this.userRepository.save(user);
+    }
+
+    @Transactional
     public void deleteUserById(Long id) {
         User user = this.userRepository.findById(id).orElse(null);
         for (Course course : user.getTeacherForCourses()) {
