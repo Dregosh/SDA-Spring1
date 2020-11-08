@@ -3,12 +3,14 @@ package pl.sda.bootcamp.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.bootcamp.model.*;
 import pl.sda.bootcamp.service.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 @Controller
@@ -77,10 +79,17 @@ public class AdminController {
     }
 
     @PostMapping("/dodajtrenera")
-    public String addTeacherToDB(@ModelAttribute User newTeacher) {
-        newTeacher.setCourses(new ArrayList<>());
-        newTeacher.setRole(this.roleService.findByRoleName("teacher"));
-        this.userService.addUser(newTeacher);
+    public String addTeacherToDB(@Valid @ModelAttribute("newTeacher") User newTeacher,
+                                 BindingResult bindingResult,
+                                 Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("newTeacher", newTeacher);
+            return "admin/addteacher";
+        } else {
+            newTeacher.setCourses(new ArrayList<>());
+            newTeacher.setRole(this.roleService.findByRoleName("teacher"));
+            this.userService.addUser(newTeacher);
+        }
         return "redirect:/admin/listatrenerow";
     }
 
