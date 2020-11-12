@@ -3,19 +3,17 @@ package pl.sda.bootcamp.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.sda.bootcamp.model.Course;
 import pl.sda.bootcamp.model.User;
-import pl.sda.bootcamp.repository.CourseRepository;
 import pl.sda.bootcamp.repository.UserRepository;
 
-
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-    private final CourseRepository courseRepository;
 
     public List<User> getAllUsers() {
         return this.userRepository.findAll();
@@ -33,35 +31,54 @@ public class UserService {
         return this.userRepository.findByRole_RoleNameContains("teacher");
     }
 
-    public List<User> getUsersByRoleName(String roleName) {
-        return this.userRepository.findByRole_RoleNameContains(roleName);
-    }
-
-    public void addUser(User user) {
-        this.userRepository.save(user);
-    }
-
-    @Transactional
-    public void updateTeacher(User user) {
-        this.courseRepository.findAll().forEach(course -> {
-            if (user.getTeacherForCourses().contains(course)) {
-                course.setTeacher(user);
-            } else if (course.getTeacher() != null &&
-                       user.getId().equals(course.getTeacher().getId())) {
-                course.setTeacher(null);
-            }
-            this.courseRepository.save(course);
-        });
-        this.userRepository.save(user);
-    }
-
-    @Transactional
-    public void deleteUserById(Long id) {
-        User user = this.userRepository.findById(id).orElse(null);
-        for (Course course : user.getTeacherForCourses()) {
-            course.setTeacher(null);
-            this.courseRepository.save(course);
+    public void saveUser(User user) {
+        User userToPersist = User.builder()
+                                 .firstName(user.getFirstName())
+                                 .lastName(user.getLastName())
+                                 .email(user.getEmail())
+                                 .phone(user.getPhone())
+                                 .hourlyRate(user.getHourlyRate())
+                                 .teacherForCourses(new ArrayList<>())
+                                 .courses(new ArrayList<>())
+                                 .role(user.getRole())
+                                 .build();
+        if (Objects.isNull(userToPersist.getHourlyRate())) {
+            userToPersist.setHourlyRate(0.0);
         }
-        this.userRepository.deleteById(id);
+        if (Objects.nonNull(user.getTeacherForCourses())) {
+            user.getTeacherForCourses().forEach(userToPersist::addTeacherCourse);
+        }
+        if (Objects.nonNull(user.getCourses())) {
+            userToPersist.setCourses(user.getCourses());
+        }
+        this.userRepository.save(userToPersist);
+    }
+
+    @Transactional
+    public void updateUser(User user) {
+        this.userRepository.findById(user.getId()).ifPresent(persistedUser -> {
+            persistedUser.setFirstName(user.getFirstName());
+            persistedUser.setLastName(user.getLastName());
+            persistedUser.setEmail(user.getEmail());
+            persistedUser.setPhone(user.getPhone());
+            if (Objects.nonNull(user.getHourlyRate())) {
+                persistedUser.setHourlyRate(user.getHourlyRate());
+            }
+            if (Objects.nonNull(user.getTeacherForCourses())) {
+                persistedUser.removeAllTeacherCourses();
+                user.getTeacherForCourses().forEach(persistedUser::addTeacherCourse);
+            }
+            if (Objects.nonNull(user.getCourses())) {
+                persistedUser.setCourses(user.getCourses());
+            }
+        });
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        this.userRepository.findById(id).ifPresent(user -> {
+            user.removeAllTeacherCourses();
+            this.userRepository.delete(user);
+        });
     }
 }

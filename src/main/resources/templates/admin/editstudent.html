@@ -14,7 +14,7 @@
 <div th:replace="adminpanel :: adminpanel"></div>
 <div id="content">
     <div class="courses-container">
-        <h3>Dodawanie nowego trenera</h3>
+        <h3>Edycja studenta</h3>
         <form class="teacher-add-form"
               th:object="${user}"
               th:method="'post'">
@@ -50,9 +50,6 @@
                         </th:block>
                     </div>
                 </fieldset>
-
-                <input type="hidden" th:field="*{id}" th:value="${user.id}">
-                <input type="hidden" th:field="*{role}" th:value="${user.role.id}">
 
                 <button>Zapisz zmiany</button>
             </div>

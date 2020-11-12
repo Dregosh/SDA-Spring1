@@ -11,45 +11,50 @@
     <h2>Panel Administracyjny</h2>
     <div class="adminbar-container">
         <th:block th:with="currentUrl=${#httpServletRequest.requestURI}">
-            <a th:href="@{/admin/listakursow}">
+            <a th:href="@{/admin/courses}">
                 <div id="courses-base" class="adminbar-button"
-                     th:classappend="${currentUrl.contains('listakursow')} ? 'current'">
+                     th:classappend="${currentUrl.equals('/admin/courses')} ? 'current'">
                     <div class="button-text">Baza Kursów</div>
                 </div>
             </a>
-            <a th:href="@{/admin/wszyscyuzytkownicy}">
+            <a th:href="@{/admin/users}">
                 <div id="all-users-base" class="adminbar-button"
-                     th:classappend="${currentUrl.contains('wszyscy')} ? 'current'">
+                     th:classappend="${currentUrl.equals('/admin/users')} ? 'current'">
                     <div class="button-text">Wszyscy Użytkownicy</div>
                 </div>
             </a>
-            <a th:href="@{/admin/listatrenerow}">
+            <a th:href="@{/admin/users/teachers}">
                 <div id="teachers-base" class="adminbar-button"
-                     th:classappend="${currentUrl.contains('listatrenerow')} ? 'current'">
+                     th:classappend="${currentUrl.equals('/admin/users/teachers')} ?
+                     'current'">
                     <div class="button-text">Baza Trenerów</div>
                 </div>
             </a>
-            <a th:href="@{/admin/listastudentow}">
+            <a th:href="@{/admin/users/students}">
                 <div id="students-base" class="adminbar-button"
-                     th:classappend="${currentUrl.contains('listastudentow')} ? 'current'">
+                     th:classappend="${currentUrl.equals('/admin/users/students')} ?
+                     'current'">
                     <div class="button-text">Baza Studentów</div>
                 </div>
             </a>
-            <a th:href="@{/admin/dodajkurs}">
+            <a th:href="@{/admin/courses/add}">
                 <div id="add-course" class="adminbar-button"
-                     th:classappend="${currentUrl.contains('dodajkurs')} ? 'current'">
+                     th:classappend="${currentUrl.equals('/admin/courses/add')} ?
+                     'current'">
                     <div class="button-text">Dodaj kurs</div>
                 </div>
             </a>
-            <a th:href="@{/admin/dodajtrenera}">
+            <a th:href="@{/admin/users/teachers/add}">
                 <div id="add-teacher" class="adminbar-button"
-                     th:classappend="${currentUrl.contains('dodajtrenera')} ? 'current'">
+                     th:classappend="${currentUrl.equals('/admin/users/teachers/add')} ?
+                     'current'">
                     <div class="button-text">Dodaj trenera</div>
                 </div>
             </a>
-            <a th:href="@{/admin/dodajstudenta}">
+            <a th:href="@{/admin/users/students/add}">
                 <div id="add-student" class="adminbar-button"
-                     th:classappend="${currentUrl.contains('dodajstudenta')} ? 'current'">
+                     th:classappend="${currentUrl.equals('/admin/users/students/add')} ?
+                     'current'">
                     <div class="button-text">Dodaj studenta</div>
                 </div>
             </a>

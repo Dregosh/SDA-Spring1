@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div id="signup-form-container">
-                <form th:action="@{'/kurs/zapis'}" th:object="${newStudent}"
+                <form th:action="@{'/kurs/zapis'}" th:object="${user}"
                       th:method="'post'">
                     <label for="first-name">Imię: </label>
                     <input type="text" id="first-name"

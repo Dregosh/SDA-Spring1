@@ -11,7 +11,6 @@ import pl.sda.bootcamp.service.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.ArrayList;
 
 @Controller
 @AllArgsConstructor
@@ -24,134 +23,179 @@ public class AdminController {
 
     @GetMapping
     public String adminPanel() {
-        return "redirect:/admin/listakursow";
+        return "redirect:/admin/courses";
     }
 
-    @GetMapping("/listakursow")
+    @GetMapping("/courses")
     public String adminCourseList(Model model) {
         model.addAttribute("courses", this.courseService.getAllCourses());
         return "admin/courselist";
     }
 
-    @GetMapping("/wszyscyuzytkownicy")
+    @GetMapping("/users")
     public String allUsersList(Model model) {
         model.addAttribute("allUsers", this.userService.getAllUsers());
         return "admin/alluserlist";
     }
 
-    @GetMapping("/listatrenerow")
+    @GetMapping("/users/teachers")
     public String adminTeacherList(Model model) {
         model.addAttribute("teachers", this.userService.getAllTeachers());
         return "admin/teacherlist";
     }
 
-    @GetMapping("/listastudentow")
+    @GetMapping("/users/students")
     public String adminStudentList(Model model) {
         model.addAttribute("students", this.userService.getAllStudents());
         return "admin/studentlist";
     }
 
-    @GetMapping("/dodajkurs")
+    @GetMapping("/courses/add")
     public String addCourseForm(Model model) {
-        model.addAttribute("newCourse", Course.builder().build());
+        model.addAttribute("course", Course.builder().build());
         model.addAttribute("modes", Mode.values());
         model.addAttribute("cities", cityService.getCities());
         model.addAttribute("teachers", this.userService.getAllTeachers());
         return "admin/addcourse";
     }
 
-    @PostMapping("/dodajkurs")
+    @PostMapping("/courses/add")
     public String addCourseToDB(@ModelAttribute Course course) {
-        this.courseService.addCourse(course);
-        return "redirect:/admin/listakursow";
+        this.courseService.save(course);
+        return "redirect:/admin/courses";
     }
 
-    @GetMapping("/usunkurs/{courseId}")
+    @GetMapping("/courses/edit/{courseId}")
+    public String editCourseForm(@PathVariable Long courseId,
+                                 Model model,
+                                 final HttpSession session) {
+        session.setAttribute("courseId", courseId);
+        model.addAttribute("course", this.courseService.getCourse(courseId));
+        model.addAttribute("modes", Mode.values());
+        model.addAttribute("cities", cityService.getCities());
+        model.addAttribute("teachers", this.userService.getAllTeachers());
+        return "admin/editcourse";
+    }
+
+    @PostMapping("/courses/edit")
+    public String saveEditedCourse(@ModelAttribute Course course,
+                                   final HttpServletRequest httpServletRequest) {
+        Long courseId = (Long) httpServletRequest.getSession().getAttribute("courseId");
+        course.setId(courseId);
+        this.courseService.update(course);
+        return "redirect:/admin/courses";
+    }
+
+    @GetMapping("/courses/remove/{courseId}")
     public String removeCourse(@PathVariable Long courseId) {
-        // TODO
-        return "redirect:/admin/listakursow";
+        this.courseService.remove(courseId);
+        return "redirect:/admin/courses";
     }
 
-    @GetMapping("/dodajtrenera")
+    @GetMapping("/users/teachers/add")
     public String addTeacherForm(Model model) {
-        model.addAttribute("newTeacher", User.builder().build());
+        model.addAttribute("user", User.builder().build());
         return "admin/addteacher";
     }
 
-    @PostMapping("/dodajtrenera")
-    public String addTeacherToDB(@Valid @ModelAttribute("newTeacher") User newTeacher,
-                                 BindingResult bindingResult,
-                                 Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("newTeacher", newTeacher);
+    @PostMapping("/users/teachers/add")
+    public String addTeacherToDB(@Valid @ModelAttribute User user,
+                                 BindingResult result) {
+        if (result.hasErrors()) {
             return "admin/addteacher";
         } else {
-            newTeacher.setCourses(new ArrayList<>());
-            newTeacher.setRole(this.roleService.findByRoleName("teacher"));
-            this.userService.addUser(newTeacher);
+            user.setRole(this.roleService.findByRoleName("teacher"));
+            this.userService.saveUser(user);
+            return "redirect:/admin/users/teachers";
         }
-        return "redirect:/admin/listatrenerow";
     }
 
-    @GetMapping("/user/edit/{userId}")
+    @GetMapping("/users/edit/{userId}")
     public String editUser(@PathVariable Long userId,
-                           Model model,
                            final HttpSession session) {
+        session.setAttribute("userId", userId);
+        return this.userService.getUserById(userId)
+                               .getRole().getRoleName().equals("teacher") ?
+               "redirect:/admin/users/teachers/edit" :
+               "redirect:/admin/users/students/edit";
+    }
+
+    @GetMapping("/users/teachers/edit")
+    public String editTeacher(final HttpServletRequest httpServletRequest,
+                              Model model) {
+        Long userId = (Long) httpServletRequest.getSession().getAttribute("userId");
         User user = this.userService.getUserById(userId);
-        session.setAttribute("user_id", user.getId());
         model.addAttribute("coursesList", this.courseService.getAllCourses());
         model.addAttribute("user", user);
-        if (user.getRole().getRoleName().equals("teacher")) {
-            return "admin/editteacher";
-        } else {
-            return "admin/editstudent";
-        }
+        return "admin/editteacher";
     }
 
-    @PostMapping("/user/edit/{userId}")
-    public String saveEditedTeacher(@PathVariable Long userId,
+    @PostMapping("/users/teachers/edit")
+    public String saveEditedTeacher(@Valid @ModelAttribute User user,
+                                    BindingResult result,
                                     final HttpServletRequest httpServletRequest,
-                                    @ModelAttribute User user) {
-        if (httpServletRequest.getSession().getAttribute("user_id").equals(userId)
-        && user.getRole().getRoleName().equals("teacher")) {
-            this.userService.updateTeacher(user);
-        } else {
-            this.userService.addUser(user);
+                                    Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("coursesList", this.courseService.getAllCourses());
+            return "admin/editteacher";
         }
-        httpServletRequest.getSession().invalidate();   //czysci sesje
-        return "redirect:/admin/wszyscyuzytkownicy";
+        Long userId = (Long) httpServletRequest.getSession().getAttribute("userId");
+        user.setId(userId);
+        this.userService.updateUser(user);
+        httpServletRequest.getSession().invalidate();
+        return "redirect:/admin/users/teachers";
     }
 
-    @GetMapping("/user/delete/{userId}")
-    public String removeUser(@PathVariable Long userId) {
-        this.userService.deleteUserById(userId);
-        return "redirect:/admin/wszyscyuzytkownicy";
-    }
-
-    @GetMapping("/usuntrenera/{teacherId}")
-    public String removeTeacher(@PathVariable Long teacherId) {
-        this.userService.deleteUserById(teacherId);
-        return "redirect:/admin/listatrenerow";
-    }
-
-    @GetMapping("/dodajstudenta")
+    @GetMapping("/users/students/add")
     public String addStudent(Model model) {
-        model.addAttribute("newStudent", User.builder().build());
+        model.addAttribute("user", User.builder().build());
         model.addAttribute("coursesList", this.courseService.getAllCourses());
         return "admin/addstudent";
     }
 
-    @PostMapping("/dodajstudenta")
-    public String processNewStudent(@ModelAttribute("newStudent") User user) {
-        user.setRole(this.roleService.findByRoleName("user"));
-        user.setHourlyRate(0.0);
-        this.userService.addUser(user);
-        return "redirect:/admin/listastudentow";
+    @PostMapping("/users/students/add")
+    public String addStudentToDB(@Valid @ModelAttribute User user,
+                                 BindingResult bindingResult,
+                                 Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("coursesList", this.courseService.getAllCourses());
+            return "admin/addstudent";
+        } else {
+            user.setRole(this.roleService.findByRoleName("user"));
+            this.userService.saveUser(user);
+            return "redirect:/admin/users/students";
+        }
     }
 
-    @GetMapping("/usunstudenta/{studentId}")
-    public String removeStudent(@PathVariable Long studentId) {
-        // TODO
-        return "redirect:/admin/listastudentow";
+    @GetMapping("/users/students/edit")
+    public String editStudent(final HttpServletRequest httpServletRequest,
+                              Model model) {
+        Long userId = (Long) httpServletRequest.getSession().getAttribute("userId");
+        User user = this.userService.getUserById(userId);
+        model.addAttribute("coursesList", this.courseService.getAllCourses());
+        model.addAttribute("user", user);
+        return "admin/editstudent";
+    }
+
+    @PostMapping("/users/students/edit")
+    public String saveEditedStudent(@Valid @ModelAttribute User user,
+                                    BindingResult result,
+                                    final HttpServletRequest httpServletRequest,
+                                    Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("coursesList", this.courseService.getAllCourses());
+            return "admin/editstudent";
+        }
+        Long userId = (Long) httpServletRequest.getSession().getAttribute("userId");
+        user.setId(userId);
+        this.userService.updateUser(user);
+        httpServletRequest.getSession().invalidate();
+        return "redirect:/admin/users/students";
+    }
+
+    @GetMapping("/users/delete/{userId}")
+    public String removeUser(@PathVariable Long userId) {
+        this.userService.delete(userId);
+        return "redirect:/admin/users";
     }
 }

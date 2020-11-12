@@ -42,7 +42,10 @@
                           th:text="${c.name}">courseNamesList</p>
                 </td>
                 <td>
-                    <a th:href="@{/admin/usunstudenta/{studentId}(studentId=${student.id})}">
+                    <a th:href="@{/admin/users/edit/{userId}(userId=${student.id})}">
+                        <button class="edit-button">Edytuj</button>
+                    </a>
+                    <a th:href="@{/admin/users/delete/{userId}(userId=${student.id})}">
                         <button class="delete-button">Usuń</button>
                     </a>
                 </td>

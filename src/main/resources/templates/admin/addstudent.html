@@ -15,7 +15,8 @@
 
 <div id="content">
     <div class="courses-container">
-        <form th:method="'post'" th:object="${newStudent}">
+        <form th:action="@{/admin/users/students/add}" th:method="'post'"
+              th:object="${user}">
             <div class="form-grid">
                 <label for="firstName">Imię: </label>
                 <input type="text" id="firstName" th:field="*{firstName}">

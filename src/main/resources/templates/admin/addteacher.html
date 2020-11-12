@@ -16,7 +16,7 @@
     <div class="courses-container">
         <h3>Dodawanie nowego trenera</h3>
         <form class="teacher-add-form"
-              th:action="@{'/admin/dodajtrenera'}" th:object="${newTeacher}"
+              th:action="@{/admin/users/teachers/add}" th:object="${user}"
               th:method="'post'">
             <div>
                 <ul aria-label="Proszę poprawić poniższe błędy"

@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin: Dodawanie kursu</title>
+    <title>Admin: Edycja kursu</title>
     <link th:href="@{/css/general.css}" rel="stylesheet"/>
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
     <link th:href="@{/css/adminpanel.css}" rel="stylesheet">
-    <link th:href="@{/css/admin/addcourse.css}" rel="stylesheet">
+    <link th:href="@{/css/admin/editcourse.css}" rel="stylesheet">
 </head>
 <body>
 <div th:replace="navbar :: navbar"></div>
 <div th:replace="adminpanel :: adminpanel"></div>
 <div id="content">
     <div class="courses-container">
-        <h3>Dodawanie nowego kursu</h3>
+        <h3>Edycja kursu</h3>
         <form class="course-add-form"
-              th:action="@{'/admin/courses/add'}" th:object="${course}"
+              th:action="@{/admin/courses/edit}" th:object="${course}"
               th:method="'post'">
             <div class="form-grid">
                 <label for="course-name">Nazwa kursu: </label>
@@ -40,12 +40,12 @@
                     <legend>Tryb</legend>
                     <div class="mode-grid">
                         <th:block th:each="m: ${modes}">
-                        <input th:id="${m.getDescription()}"
-                               type="radio"
-                               th:value="${m}"
-                               th:field="*{mode}" required>
-                        <label th:for="${m.getDescription()}"
-                               th:text="${m.getDescription()}">dzienny</label>
+                            <input th:id="${m.getDescription()}"
+                                   type="radio"
+                                   th:value="${m}"
+                                   th:field="*{mode}" required>
+                            <label th:for="${m.getDescription()}"
+                                   th:text="${m.getDescription()}">dzienny</label>
                         </th:block>
                     </div>
                 </fieldset>
@@ -59,7 +59,7 @@
                             th:text="${possibleTeacher.lastName + ' ' +
                             possibleTeacher.firstName}">Trener</option>
                 </select>
-                <button>Zapisz kurs</button>
+                <button>Zapisz zmiany</button>
             </div>
         </form>
     </div>

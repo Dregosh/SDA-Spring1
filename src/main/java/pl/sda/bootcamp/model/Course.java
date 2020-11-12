@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
 
 @Entity
@@ -38,4 +39,22 @@ public class Course {
 
     @ManyToMany(mappedBy = "courses")
     private List<User> users;
+
+    public void addUser(User user) {
+        user.getCourses().add(this);
+        this.users.add(user);
+    }
+
+    public void removeUser(User user) {
+        user.getCourses().remove(this);
+        this.users.remove(user);
+    }
+
+    public void removeAllUsers() {
+        Iterator<User> it = users.iterator();
+        while (it.hasNext()) {
+            it.next().getCourses().remove(this);
+            it.remove();
+        }
+    }
 }

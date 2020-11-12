@@ -28,6 +28,7 @@
                 <th scope="col">Tryb</th>
                 <th scope="col">Cena</th>
                 <th scope="col">Trener</th>
+                <th scope="col">Kursanci</th>
                 <th scope="col"></th>
             </tr>
             </thead>
@@ -39,21 +40,29 @@
                 <td data-label="Start" th:text="${course.beginDate}">courseBegin</td>
                 <td data-label="Koniec" th:text="${course.endDate}">courseEnd</td>
                 <td data-label="Tryb"
-                    th:text="${course.mode.getDescription()}">courseMode</td>
+                    th:text="${course.mode.getDescription()}">courseMode
+                </td>
                 <td data-label="Cena"
                     th:text="${#numbers.formatDecimal(
-                    course.price, 1, 'WHITESPACE', 2, 'COMMA') + ' zł'}">coursePrice</td>
+                    course.price, 1, 'WHITESPACE', 2, 'COMMA') + ' zł'}">coursePrice
+                </td>
                 <td data-label="Trener"
                     th:if="${course.teacher}"
                     th:text="${course.teacher.lastName + ' ' +
-                    course.teacher.firstName}">courseTeacher</td>
+                    course.teacher.firstName}">courseTeacher
+                </td>
                 <td data-label="Trener"
-                    th:unless="${course.teacher}">brak trenera</td>
+                    th:unless="${course.teacher}">brak trenera
+                </td>
+                <td data-label="Kursanci"
+                    th:text="${course.users.size()}">studentsAmount
+                </td>
                 <td>
-                    <a th:href="@{/admin/edytujkurs/{courseId}(courseId=${course.id})}">
+                    <a th:href="@{/admin/courses/edit/{courseId}(courseId=${course.id})}">
                         <button class="edit-button">Edytuj</button>
                     </a>
-                    <a th:href="@{/admin/usunkurs/{courseId}(courseId=${course.id})}">
+                    <a th:href="@{/admin/courses/remove/
+                        {courseId}(courseId=${course.id})}">
                         <button class="delete-button">Usuń</button>
                     </a>
                 </td>
