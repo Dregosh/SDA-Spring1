@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podsumowanie zakupu</title>
+    <link th:href="@{/css/general.css}" rel="stylesheet"/>
+    <link th:href="@{/css/navbar.css}" rel="stylesheet"/>
+    <link th:href="@{/css/course/ordersummary.css}" rel="stylesheet"/>
+</head>
+<body>
+<div th:replace="navbar :: navbar"></div>
+<div id="content">
+    <div class="courses-container">
+        <h2>Już jesteś zapisany na ten kurs</h2>
+        <i class="far fa-grin-alt fa-3x"></i>
+        <div class="course-tile">
+            <p class="strong">Do zobaczenia na zajęciach</p>
+            <a th:href="@{/kurs/lista}">
+                <button>Powrót na stronę główną</button>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

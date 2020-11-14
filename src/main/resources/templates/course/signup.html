@@ -49,18 +49,25 @@
             <div id="signup-form-container">
                 <form th:action="@{'/kurs/zapis'}" th:object="${user}"
                       th:method="'post'">
+                    <div>
+                        <ul aria-label="Proszę poprawić poniższe błędy"
+                            th:if="${#fields.hasErrors('*')}">
+                            <li th:each="err : ${#fields.errors('*')}"
+                                th:text="${err}">errorsList</li>
+                        </ul>
+                    </div>
                     <label for="first-name">Imię: </label>
                     <input type="text" id="first-name"
-                           th:field="*{firstName}" required><br>
+                           th:field="*{firstName}"><br>
                     <label for="last-name">Nazwisko: </label>
                     <input type="text" id="last-name"
-                           th:field="*{lastName}" required><br>
+                           th:field="*{lastName}"><br>
                     <label for="email">E-mail: </label>
                     <input type="text" id="email"
-                           th:field="*{email}" required><br>
+                           th:field="*{email}"><br>
                     <label for="phone">Telefon: </label>
                     <input type="text" id="phone"
-                           th:field="*{phone}" required><br>
+                           th:field="*{phone}"><br>
                     <button>Wyślij zgłoszenie</button>
                 </form>
             </div>

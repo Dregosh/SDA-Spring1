@@ -23,6 +23,10 @@ public class UserService {
         return this.userRepository.findById(id).orElse(null);
     }
 
+    public User findByEmail(String email) {
+        return this.userRepository.findByEmail(email);
+    }
+
     public List<User> getAllStudents() {
         return this.userRepository.findByRole_RoleNameContains("user");
     }

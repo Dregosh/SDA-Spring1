@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Studenta</title>
+    <link th:href="@{/css/general.css}" rel="stylesheet"/>
+    <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <!--    <link th:href="@{/css/admin/admintables.css}" rel="stylesheet">-->
+    <!--    <link th:href="@{/css/admin/teacherlist.css}" rel="stylesheet">-->
+</head>
+<body>
+<div th:replace="navbar :: navbar"></div>
+
+<div id="content">
+    <div class="courses-container">
+        <p>Panel Studenta</p>
+        <a th:href="@{/logout}">Wyloguj</a>
+    </div>
+</div>
+</body>
+</html>

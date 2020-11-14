@@ -2,6 +2,7 @@ package pl.sda.bootcamp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.bootcamp.model.Course;
 import pl.sda.bootcamp.model.User;
@@ -11,7 +12,9 @@ import pl.sda.bootcamp.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/kurs")
@@ -46,19 +49,38 @@ public class CourseController {
     }
 
     @PostMapping("/zapis")
-    public String signedIn(@ModelAttribute User user,
+    public String signedIn(@Valid @ModelAttribute User user,
+                           BindingResult result,
                            final HttpServletRequest httpServletRequest,
                            Model model) {
         Long courseId = (Long) httpServletRequest.getSession().getAttribute("courseId");
-        httpServletRequest.getSession().invalidate();
         Course chosenCourse = this.courseService.getCourse(courseId);
-        user.setCourses(new ArrayList<>());
-        user.getCourses().add(chosenCourse);
-        user.setRole(this.roleService.findByRoleName("user"));
-        user.setHourlyRate(0.0);
-        this.userService.saveUser(user);
+        if (result.hasErrors()) {
+            model.addAttribute("chosenCourse", chosenCourse);
+            return "course/signup";
+        }
+
+        User userAlreadyExists =
+                this.userService.findByEmail(user.getEmail());
+
+        if (Objects.nonNull(userAlreadyExists)) {
+            if (!userAlreadyExists.getCourses().contains(chosenCourse)) {
+                userAlreadyExists.getCourses().add(chosenCourse);
+                this.userService.updateUser(userAlreadyExists);
+                model.addAttribute("user", userAlreadyExists);
+            } else {
+                return "course/alreadysignedup";
+            }
+        } else {
+            user.setCourses(new ArrayList<>());
+            user.getCourses().add(chosenCourse);
+            user.setRole(this.roleService.findByRoleName("user"));
+            user.setHourlyRate(0.0);
+            this.userService.saveUser(user);
+            model.addAttribute("user", user);
+        }
         model.addAttribute("chosenCourse", chosenCourse);
-        model.addAttribute("user", user);
+        httpServletRequest.getSession().invalidate();
         return "course/ordersummary";
     }
 }

@@ -25,6 +25,7 @@ public class User {
     private String lastName;
 
     @NotEmpty(message = "e-mail")
+    @Column(unique = true)
     private String email;
 
     @NotEmpty(message = "telefon")

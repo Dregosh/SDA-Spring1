@@ -14,6 +14,14 @@
        'current-link'">Kursy</a>
     </div>
     <div class="right-side">
+        <a th:href="@{/panel-klienta}" title="Panel Administracyjny">
+            <i class="fas fa-user-graduate"
+               th:classappend="${#httpServletRequest.requestURI
+        .contains('panel-klienta')} ? 'current-link'"></i></a>
+        <a th:href="@{/panel-trenera}" title="Panel Administracyjny">
+            <i class="fas fa-chalkboard-teacher"
+               th:classappend="${#httpServletRequest.requestURI
+               .contains('panel-trenera')} ? 'current-link'"></i></a>
         <a th:href="@{/admin}" title="Panel Administracyjny">
             <i class="fas fa-user-cog"
                th:classappend="${#httpServletRequest.requestURI.contains('admin')} ?

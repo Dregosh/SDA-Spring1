@@ -12,4 +12,14 @@ public class HomeController {
     public String home() {
         return "redirect:kurs/lista";
     }
+
+    @GetMapping("/panel-klienta")
+    public String showStudentPanel() {
+        return "panels/studentpanel";
+    }
+
+    @GetMapping("/panel-trenera")
+    public String showTeacherPanel() {
+        return "panels/teacherpanel";
+    }
 }
