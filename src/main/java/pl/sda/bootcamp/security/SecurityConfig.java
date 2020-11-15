@@ -16,7 +16,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
-    public SecurityConfig(@Qualifier("studentDetailsService")
+    public SecurityConfig(@Qualifier("appUserDetailsService")
                           final UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
@@ -35,6 +35,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest().permitAll()
             .and().formLogin()
             .and().logout().logoutSuccessUrl("/");
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
     }
 
     @Override

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,14 @@
 <div th:replace="navbar :: navbar"></div>
 <div id="content">
     <div class="courses-container">
+
+        <!--<p>Jesteś zalogowany jako: <span sec:authentication="name"></span></p>
+        <p sec:authorize="isAuthenticated()">Role: <span
+                sec:authentication="principal.authorities"></span></p>
+        <p>Logged in?
+            <span sec:authorize="isAuthenticated()">Jesteś zalogowany</span></p>
+        <p>Authority: <span sec:authorize="hasAuthority('ROLE_ADMIN')">admin</span></p>-->
+
         <h1>Aktualnie dostępne kursy</h1>
         <div class="course-tile" th:each="course: ${courses}">
             <div class="course-header">

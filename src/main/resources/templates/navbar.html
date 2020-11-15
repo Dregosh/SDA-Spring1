@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,18 +15,27 @@
        'current-link'">Kursy</a>
     </div>
     <div class="right-side">
-        <a th:href="@{/panel-klienta}" title="Panel Administracyjny">
+        <a sec:authorize="!isAuthenticated()" th:href="@{/login}" title="Zaloguj się">
+            <i class="fas fa-sign-in-alt"></i></a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/logout}" title="Wyloguj się">
+            <i class="fas fa-sign-out-alt"></i></a>
+        <th:block sec:authorize="isAuthenticated()">
+        <a sec:authorize="hasAuthority('ROLE_USER')"
+           th:href="@{/panel-klienta}" title="Panel Studenta">
             <i class="fas fa-user-graduate"
                th:classappend="${#httpServletRequest.requestURI
         .contains('panel-klienta')} ? 'current-link'"></i></a>
-        <a th:href="@{/panel-trenera}" title="Panel Administracyjny">
+        <a sec:authorize="hasAuthority('ROLE_TEACHER')"
+           th:href="@{/panel-trenera}" title="Panel Trenera">
             <i class="fas fa-chalkboard-teacher"
                th:classappend="${#httpServletRequest.requestURI
                .contains('panel-trenera')} ? 'current-link'"></i></a>
-        <a th:href="@{/admin}" title="Panel Administracyjny">
+        <a sec:authorize="hasAuthority('ROLE_ADMIN')"
+           th:href="@{/admin}" title="Panel Administracyjny">
             <i class="fas fa-user-cog"
                th:classappend="${#httpServletRequest.requestURI.contains('admin')} ?
            'current-link'"></i></a>
+        </th:block>
         <a href="https://github.com/Dregosh/SDA-Spring1"
            title="Obejrzyj kod źródłowy tej aplikacji na Github"
            target="_blank"><i class="fab fa-github"></i></a>
