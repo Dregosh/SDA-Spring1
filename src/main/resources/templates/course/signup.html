@@ -68,6 +68,15 @@
                     <label for="phone">Telefon: </label>
                     <input type="text" id="phone"
                            th:field="*{phone}"><br>
+
+                    <label for="password-1">Hasło: </label>
+                    <input type="password" id="password-1"
+                           th:field="*{password}"
+                           th:errorclass="field-error">
+
+                    <label for="password-2">Powtórz hasło: </label>
+                    <input type="password" id="password-2"
+                           name="passwordRepeat">
                     <button>Wyślij zgłoszenie</button>
                 </form>
             </div>

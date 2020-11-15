@@ -100,7 +100,12 @@ public class AdminController {
 
     @PostMapping("/users/teachers/add")
     public String addTeacherToDB(@Valid @ModelAttribute User user,
-                                 BindingResult result) {
+                                 BindingResult result,
+                                 @RequestParam String passwordRepeat) {
+        if (!user.getPassword().equals(passwordRepeat)) {
+            result.rejectValue("password", "passwords_match_err",
+                               "Wpisane hasła różnią się");
+        }
         if (result.hasErrors()) {
             return "admin/addteacher";
         } else {

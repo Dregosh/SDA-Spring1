@@ -51,10 +51,15 @@ public class CourseController {
     @PostMapping("/zapis")
     public String signedIn(@Valid @ModelAttribute User user,
                            BindingResult result,
+                           @RequestParam String passwordRepeat,
                            final HttpServletRequest httpServletRequest,
                            Model model) {
         Long courseId = (Long) httpServletRequest.getSession().getAttribute("courseId");
         Course chosenCourse = this.courseService.getCourse(courseId);
+        if (!user.getPassword().equals(passwordRepeat)) {
+            result.rejectValue("password", "passwords_match_err",
+                               "Wpisane hasła różnią się");
+        }
         if (result.hasErrors()) {
             model.addAttribute("chosenCourse", chosenCourse);
             return "course/signup";

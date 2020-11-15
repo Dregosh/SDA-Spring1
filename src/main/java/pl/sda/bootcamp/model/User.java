@@ -43,6 +43,8 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
+    private String password;
+
     public void addTeacherCourse(Course course) {
         course.setTeacher(this);
         this.teacherForCourses.add(course);
