@@ -1,3 +1,4 @@
+/*
 package pl.sda.bootcamp.security;
 
 import lombok.AllArgsConstructor;
@@ -20,3 +21,4 @@ public class StudentDetailsService implements UserDetailsService {
         return new StudentDetails(student);
     }
 }
+*/

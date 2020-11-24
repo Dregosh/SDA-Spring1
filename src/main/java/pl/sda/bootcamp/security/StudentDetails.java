@@ -1,3 +1,4 @@
+/*
 package pl.sda.bootcamp.security;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -51,3 +52,4 @@ public class StudentDetails implements UserDetails {
         return true;
     }
 }
+*/

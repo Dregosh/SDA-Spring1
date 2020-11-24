@@ -54,6 +54,16 @@ div.left-side a:hover {
     border-radius: 8px;
 }
 
+#logged-welcome,
+#logged-user-name {
+    color: white;
+    font-size: small;
+}
+
+#logged-user-name {
+    padding-right: 15px;
+}
+
 @media (min-width: 576px) {
     nav {
         max-width: 540px;

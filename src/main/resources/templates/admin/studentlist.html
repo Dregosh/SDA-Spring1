@@ -23,7 +23,7 @@
                 <th scope="col">ID</th>
                 <th scope="col">Nazwisko</th>
                 <th scope="col">Imię</th>
-                <th scope="col">E-mail</th>
+                <th scope="col">E-mail (login)</th>
                 <th scope="col">Telefon</th>
                 <th scope="col">Kursy</th>
                 <th scope="col"></th>
@@ -35,7 +35,8 @@
                 <td data-label="Nazwisko" th:text="${student.lastName}">studentLastName
                 </td>
                 <td data-label="Imię" th:text="${student.firstName}">studentFirstName</td>
-                <td data-label="E-mail" th:text="${student.email}">studentEmail</td>
+                <td data-label="E-mail (login)"
+                    th:text="${student.email}">studentEmail</td>
                 <td data-label="Phone" th:text="${student.phone}">studentPhone</td>
                 <td data-label="Kursy">
                     <p th:each="c: ${student.courses}"

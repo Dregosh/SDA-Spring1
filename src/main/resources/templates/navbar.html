@@ -15,6 +15,10 @@
        'current-link'">Kursy</a>
     </div>
     <div class="right-side">
+        <th:block sec:authorize="isAuthenticated()">
+            <span id="logged-welcome">Witaj, </span>
+            <span id="logged-user-name" sec:authentication="name"></span>
+        </th:block>
         <a sec:authorize="!isAuthenticated()" th:href="@{/login}" title="Zaloguj się">
             <i class="fas fa-sign-in-alt"></i></a>
         <a sec:authorize="isAuthenticated()" th:href="@{/logout}" title="Wyloguj się">

@@ -1,3 +1,4 @@
+/*
 package pl.sda.bootcamp.model;
 
 import lombok.*;
@@ -22,3 +23,4 @@ public class Student {
     private String password;
     private String role;
 }
+*/

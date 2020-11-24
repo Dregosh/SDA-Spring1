@@ -1,23 +1,12 @@
 package pl.sda.bootcamp.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.List;
-
-@Entity
-@NoArgsConstructor
 @Getter
-@Setter
-public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@AllArgsConstructor
+public enum Role {
+    ROLE_ADMIN("Administrator"), ROLE_USER("Student"), ROLE_TEACHER("Trener");
 
-    private String roleName;
-
-    @OneToMany(mappedBy = "role")
-    private List<User> users;
+    private final String roleName;
 }

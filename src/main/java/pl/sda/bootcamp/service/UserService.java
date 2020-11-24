@@ -3,6 +3,7 @@ package pl.sda.bootcamp.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.sda.bootcamp.model.Role;
 import pl.sda.bootcamp.model.User;
 import pl.sda.bootcamp.repository.UserRepository;
 
@@ -28,11 +29,11 @@ public class UserService {
     }
 
     public List<User> getAllStudents() {
-        return this.userRepository.findByRole_RoleNameContains("user");
+        return this.userRepository.findByRole(Role.ROLE_USER);
     }
 
     public List<User> getAllTeachers() {
-        return this.userRepository.findByRole_RoleNameContains("teacher");
+        return this.userRepository.findByRole(Role.ROLE_TEACHER);
     }
 
     public void saveUser(User user) {

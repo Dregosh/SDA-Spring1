@@ -19,7 +19,6 @@ public class AdminController {
     private final UserService userService;
     private final CourseService courseService;
     private final CityService cityService;
-    private final RoleService roleService;
 
     @GetMapping
     public String adminPanel() {
@@ -109,7 +108,7 @@ public class AdminController {
         if (result.hasErrors()) {
             return "admin/addteacher";
         } else {
-            user.setRole(this.roleService.findByRoleName("teacher"));
+            user.setRole(Role.ROLE_TEACHER);
             this.userService.saveUser(user);
             return "redirect:/admin/users/teachers";
         }
@@ -120,7 +119,7 @@ public class AdminController {
                            final HttpSession session) {
         session.setAttribute("userId", userId);
         return this.userService.getUserById(userId)
-                               .getRole().getRoleName().equals("teacher") ?
+                               .getRole().equals(Role.ROLE_TEACHER) ?
                "redirect:/admin/users/teachers/edit" :
                "redirect:/admin/users/students/edit";
     }
@@ -166,7 +165,7 @@ public class AdminController {
             model.addAttribute("coursesList", this.courseService.getAllCourses());
             return "admin/addstudent";
         } else {
-            user.setRole(this.roleService.findByRoleName("user"));
+            user.setRole(Role.ROLE_USER);
             this.userService.saveUser(user);
             return "redirect:/admin/users/students";
         }

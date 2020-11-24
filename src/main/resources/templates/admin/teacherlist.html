@@ -23,6 +23,7 @@
                 <th scope="col">ID</th>
                 <th scope="col">Nazwisko</th>
                 <th scope="col">Imię</th>
+                <th scope="col">E-mail (login)</th>
                 <th scope="col">Stawka godzinowa</th>
                 <th scope="col">Prowadzi kursy</th>
                 <th scope="col"></th>
@@ -37,6 +38,8 @@
                 </td>
                 <td data-label="Imię"
                     th:text="${teacher.firstName}">teacherFirstName</td>
+                <td data-label="E-mail (login)"
+                    th:text="${teacher.email}">teacherEmail</td>
                 <td data-label="Stawka godzinowa"
                     th:text="${#numbers.formatDecimal(
                     teacher.hourlyRate, 1, 'WHITESPACE', 2, 'COMMA') + ' zł'}">hourlyRate
