@@ -7,18 +7,21 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
+    private final AuthenticationSuccessHandler successHandler;
 
     public SecurityConfig(@Qualifier("appUserDetailsService")
-                          final UserDetailsService userDetailsService) {
+                          final UserDetailsService userDetailsService,
+                          AuthenticationSuccessHandler successHandler) {
         this.userDetailsService = userDetailsService;
+        this.successHandler = successHandler;
     }
 
     @Override
@@ -33,8 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/panel-klienta/**").hasRole("USER")
             .antMatchers("/panel-trenera/**").hasRole("TEACHER")
             .anyRequest().permitAll()
-            .and().formLogin()
-            .and().logout().logoutSuccessUrl("/");
+            .and().formLogin().loginPage("/login").successHandler(successHandler)
+            .and().logout().logoutSuccessUrl("/")
+            .and().csrf().disable();
     }
 
     @Override

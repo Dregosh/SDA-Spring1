@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import pl.sda.bootcamp.model.User;
 import pl.sda.bootcamp.repository.UserRepository;
 
+import java.util.Objects;
+
 @Service
 @AllArgsConstructor
 public class AppUserDetailsService implements UserDetailsService {
@@ -17,6 +19,9 @@ public class AppUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = this.userRepository.findByEmail(s);
+        if (Objects.isNull(user)) {
+            throw new UsernameNotFoundException("Not found: " + s);
+        }
         return new AppUserDetails(user);
     }
 }

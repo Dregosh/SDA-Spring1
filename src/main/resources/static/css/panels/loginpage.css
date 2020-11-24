@@ -1,0 +1,92 @@
+p {
+    color: rgb(130, 167, 231);
+    padding: 0;
+    margin: 0;
+}
+
+p.strong {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+#signup-form-container {
+    text-align: center;
+}
+
+form {
+    border-radius: 10px;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+form label {
+    text-align: left;
+    font-size: 3vw;
+    display: block;
+    padding: 0.5em 1.5em 0.5em 0;
+    margin-left: 1em;
+}
+
+form input {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    background-color: rgb(210, 225, 250);
+    border: none;
+    border-radius: 10px;
+    padding: 0.7em;
+    margin-bottom: 0.5rem;
+}
+
+form button {
+    margin-top: 10px;
+    padding: 10px 30px;
+    font-size: 1rem;
+    border-style: none;
+    border-radius: 30px 15px;
+    font-weight: bold;
+    background-color: slateblue;
+    color: white;
+    transition: 0.3s all;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+form button:hover {
+    opacity: 0.7;
+}
+
+form button:focus, input:focus {
+    outline: none;
+}
+
+form button:active {
+    transform: scale(1.05);
+}
+
+input:focus {
+    background-color: rgb(165, 196, 250);
+}
+
+div.error-wrapper {
+    color: red;
+    font-weight: bold;
+    padding-bottom: 0.3em;
+}
+
+@media (min-width: 576px) {
+    form label {
+        font-size: 1em;
+    }
+    form input {
+        max-width: 185px;
+    }
+}
+
+@media (min-width: 768px) {  }
+
+@media (min-width: 992px) {  }
+
+@media (min-width: 1200px) {  }

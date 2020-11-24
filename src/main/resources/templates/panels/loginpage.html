@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logowanie</title>
+    <link th:href="@{/css/general.css}" rel="stylesheet"/>
+    <link th:href="@{/css/navbar.css}" rel="stylesheet"/>
+    <link th:href="@{/css/panels/loginpage.css}" rel="stylesheet"/>
+</head>
+<body>
+<div th:replace="navbar :: navbar"></div>
+<div id="content">
+    <div class="courses-container">
+        <div id="signup-form-container">
+            <p class="strong">Wbudowane konta demonstracyjne:</p>
+            <p>Administrator (Login: aaa, Hasło: qqq)</p>
+            <p>Trener (Login: sss, Hasło: www)</p>
+            <p>Student (Login: ddd, Hasło: eee)</p>
+            <h2>Zaloguj się</h2>
+            <div th:if="${param.error}" class="error-wrapper">Logowanie nieudane.
+                Sprawdź poprawność adresu e-mail i hasła.
+            </div>
+            <form th:action="@{'/login'}" th:method="'post'">
+                <label for="username">E-mail: </label>
+                <input type="text" id="username" name="username">
+                <label for="password">Hasło: </label>
+                <input type="password" id="password" name="password">
+                <button>Zaloguj się</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

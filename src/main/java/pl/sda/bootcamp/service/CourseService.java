@@ -1,11 +1,13 @@
 package pl.sda.bootcamp.service;
 
 import lombok.AllArgsConstructor;
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.sda.bootcamp.model.Course;
 import pl.sda.bootcamp.repository.CourseRepository;
 
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
