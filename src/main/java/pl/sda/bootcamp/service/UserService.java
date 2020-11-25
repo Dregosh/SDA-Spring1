@@ -1,6 +1,7 @@
 package pl.sda.bootcamp.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.sda.bootcamp.model.Role;
@@ -15,6 +16,7 @@ import java.util.Objects;
 @AllArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public List<User> getAllUsers() {
         return this.userRepository.findAll();
@@ -46,7 +48,7 @@ public class UserService {
                                  .teacherForCourses(new ArrayList<>())
                                  .courses(new ArrayList<>())
                                  .role(user.getRole())
-                                 .password(user.getPassword())
+                                 .password(passwordEncoder.encode(user.getPassword()))
                                  .build();
         if (Objects.isNull(userToPersist.getHourlyRate())) {
             userToPersist.setHourlyRate(0.0);
@@ -67,7 +69,6 @@ public class UserService {
             persistedUser.setLastName(user.getLastName());
             persistedUser.setEmail(user.getEmail());
             persistedUser.setPhone(user.getPhone());
-            persistedUser.setPassword(user.getPassword());
             if (Objects.nonNull(user.getHourlyRate())) {
                 persistedUser.setHourlyRate(user.getHourlyRate());
             }

@@ -44,23 +44,18 @@
                     <div class="button-text">Dodaj kurs</div>
                 </div>
             </a>
-            <a th:href="@{/admin/users/teachers/add}">
+            <a th:href="@{/admin/users/add-teacher}">
                 <div id="add-teacher" class="adminbar-button"
-                     th:classappend="${currentUrl.equals('/admin/users/teachers/add')} ?
+                     th:classappend="${currentUrl.equals('/admin/users/add-teacher')} ?
                      'current'">
                     <div class="button-text">Dodaj trenera</div>
                 </div>
             </a>
-            <a th:href="@{/admin/users/students/add}">
+            <a th:href="@{/admin/users/add-student}">
                 <div id="add-student" class="adminbar-button"
-                     th:classappend="${currentUrl.equals('/admin/users/students/add')} ?
+                     th:classappend="${currentUrl.equals('/admin/users/add-student')} ?
                      'current'">
                     <div class="button-text">Dodaj studenta</div>
-                </div>
-            </a>
-            <a th:href="@{/logout}">
-                <div id="admin-logout" class="adminbar-button">
-                    <div class="button-text">Wyloguj</div>
                 </div>
             </a>
         </th:block>

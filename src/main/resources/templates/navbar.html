@@ -21,8 +21,12 @@
         </th:block>
         <a sec:authorize="!isAuthenticated()" th:href="@{/login}" title="Zaloguj się">
             <i class="fas fa-sign-in-alt"></i></a>
-        <a sec:authorize="isAuthenticated()" th:href="@{/logout}" title="Wyloguj się">
+        <th:block sec:authorize="isAuthenticated()">
+        <a href="javascript: document.logoutForm.submit()">
             <i class="fas fa-sign-out-alt"></i></a>
+        <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+            <input hidden type="submit" value="Sign Out"/></form>
+        </th:block>
         <th:block sec:authorize="isAuthenticated()">
         <a sec:authorize="hasAuthority('ROLE_USER')"
            th:href="@{/panel-klienta}" title="Panel Studenta">

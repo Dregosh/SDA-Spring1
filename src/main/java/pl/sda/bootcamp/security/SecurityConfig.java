@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -36,41 +37,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/panel-klienta/**").hasRole("USER")
             .antMatchers("/panel-trenera/**").hasRole("TEACHER")
             .anyRequest().permitAll()
-            .and().formLogin().loginPage("/login").successHandler(successHandler)
-            .and().logout().logoutSuccessUrl("/")
-            .and().csrf().disable();
+            .and()
+            .formLogin().loginPage("/login").successHandler(successHandler)
+            .and()
+            .logout().logoutSuccessUrl("/")
+            .and()
+            .csrf(c -> c.ignoringAntMatchers("/api/**"));
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(userDetailsService).passwordEncoder(pwdEncoder());
     }
 
-    @Override
+    /*@Override
     protected UserDetailsService userDetailsService() {
         return userDetailsService;
-    }
+    }*/
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        //return new BCryptPasswordEncoder();
-        return NoOpPasswordEncoder.getInstance();
+    public PasswordEncoder pwdEncoder() {
+        return new BCryptPasswordEncoder();
     }
-
-    //aaa: qqq , ttt: www, sss: www
-   /* @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-            .withUser("aaa")
-            .password("$2y$12$f0EN/pLt5wRguPnpkw7MxOl30z34VYGMYoRX6dUKMtRw.ct8fZN3m")
-            .roles("ADMIN")
-            .and()
-            .withUser("ttt")
-            .password("$2y$12$f0EN/pLt5wRguPnpkw7MxOl30z34VYGMYoRX6dUKMtRw.ct8fZN3m")
-            .roles("TEACHER")
-            .and()
-            .withUser("sss")
-            .password("$2y$12$f0EN/pLt5wRguPnpkw7MxOl30z34VYGMYoRX6dUKMtRw.ct8fZN3m")
-            .roles("USER");
-    }*/
 }

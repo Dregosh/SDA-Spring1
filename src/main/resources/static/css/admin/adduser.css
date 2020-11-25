@@ -79,6 +79,28 @@ form button:active {
     transform: scale(1.05);
 }
 
+.field-error {
+    border: 1px solid red;
+}
+
+ul:before{
+    content:attr(aria-label);
+    font-size:120%;
+    font-weight:bold;
+}
+
+ul {
+    list-style-type: none;
+    color: red;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    padding: 0.2em;
+}
+
 @media screen and (max-width: 992px) {
     .form-grid {
         font-size: small;

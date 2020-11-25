@@ -91,110 +91,55 @@ public class AdminController {
         return "redirect:/admin/courses";
     }
 
-    @GetMapping("/users/teachers/add")
-    public String addTeacherForm(Model model) {
-        model.addAttribute("user", User.builder().build());
-        return "admin/addteacher";
+    @GetMapping("/users/add-student")
+    public String addStudentForm(Model model) {
+        model.addAttribute("user", User.builder().role(Role.ROLE_USER).build());
+        model.addAttribute("coursesList", this.courseService.getAllCourses());
+        return "admin/adduser";
     }
 
-    @PostMapping("/users/teachers/add")
-    public String addTeacherToDB(@Valid @ModelAttribute User user,
+    @GetMapping("/users/add-teacher")
+    public String addTeacherForm(Model model) {
+        model.addAttribute("user", User.builder().role(Role.ROLE_TEACHER).build());
+        return "admin/adduser";
+    }
+
+    @PostMapping("/users/add")
+    public String processNewUser(@Valid @ModelAttribute User user,
                                  BindingResult result,
-                                 @RequestParam String passwordRepeat) {
+                                 @RequestParam String passwordRepeat,
+                                 Model model) {
         if (!user.getPassword().equals(passwordRepeat)) {
             result.rejectValue("password", "passwords_match_err",
                                "Wpisane hasła różnią się");
         }
         if (result.hasErrors()) {
-            return "admin/addteacher";
+            model.addAttribute("coursesList", this.courseService.getAllCourses());
+            return "admin/adduser";
         } else {
-            user.setRole(Role.ROLE_TEACHER);
             this.userService.saveUser(user);
-            return "redirect:/admin/users/teachers";
+            return "redirect:/admin/users";
         }
     }
 
     @GetMapping("/users/edit/{userId}")
-    public String editUser(@PathVariable Long userId,
-                           final HttpSession session) {
-        session.setAttribute("userId", userId);
-        return this.userService.getUserById(userId)
-                               .getRole().equals(Role.ROLE_TEACHER) ?
-               "redirect:/admin/users/teachers/edit" :
-               "redirect:/admin/users/students/edit";
-    }
-
-    @GetMapping("/users/teachers/edit")
-    public String editTeacher(final HttpServletRequest httpServletRequest,
-                              Model model) {
-        Long userId = (Long) httpServletRequest.getSession().getAttribute("userId");
+    public String editTeacher(@PathVariable Long userId, Model model) {
         User user = this.userService.getUserById(userId);
         model.addAttribute("coursesList", this.courseService.getAllCourses());
         model.addAttribute("user", user);
-        return "admin/editteacher";
+        return "admin/edituser";
     }
 
-    @PostMapping("/users/teachers/edit")
-    public String saveEditedTeacher(@Valid @ModelAttribute User user,
+    @PostMapping("/users/edit")
+    public String saveEditedUser(@Valid @ModelAttribute User user,
                                     BindingResult result,
-                                    final HttpServletRequest httpServletRequest,
                                     Model model) {
         if (result.hasErrors()) {
             model.addAttribute("coursesList", this.courseService.getAllCourses());
-            return "admin/editteacher";
+            return "admin/edituser";
         }
-        Long userId = (Long) httpServletRequest.getSession().getAttribute("userId");
-        user.setId(userId);
         this.userService.updateUser(user);
-        httpServletRequest.getSession().invalidate();
-        return "redirect:/admin/users/teachers";
-    }
-
-    @GetMapping("/users/students/add")
-    public String addStudent(Model model) {
-        model.addAttribute("user", User.builder().build());
-        model.addAttribute("coursesList", this.courseService.getAllCourses());
-        return "admin/addstudent";
-    }
-
-    @PostMapping("/users/students/add")
-    public String addStudentToDB(@Valid @ModelAttribute User user,
-                                 BindingResult bindingResult,
-                                 Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("coursesList", this.courseService.getAllCourses());
-            return "admin/addstudent";
-        } else {
-            user.setRole(Role.ROLE_USER);
-            this.userService.saveUser(user);
-            return "redirect:/admin/users/students";
-        }
-    }
-
-    @GetMapping("/users/students/edit")
-    public String editStudent(final HttpServletRequest httpServletRequest,
-                              Model model) {
-        Long userId = (Long) httpServletRequest.getSession().getAttribute("userId");
-        User user = this.userService.getUserById(userId);
-        model.addAttribute("coursesList", this.courseService.getAllCourses());
-        model.addAttribute("user", user);
-        return "admin/editstudent";
-    }
-
-    @PostMapping("/users/students/edit")
-    public String saveEditedStudent(@Valid @ModelAttribute User user,
-                                    BindingResult result,
-                                    final HttpServletRequest httpServletRequest,
-                                    Model model) {
-        if (result.hasErrors()) {
-            model.addAttribute("coursesList", this.courseService.getAllCourses());
-            return "admin/editstudent";
-        }
-        Long userId = (Long) httpServletRequest.getSession().getAttribute("userId");
-        user.setId(userId);
-        this.userService.updateUser(user);
-        httpServletRequest.getSession().invalidate();
-        return "redirect:/admin/users/students";
+        return "redirect:/admin/users";
     }
 
     @GetMapping("/users/delete/{userId}")

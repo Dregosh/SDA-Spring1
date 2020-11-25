@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin: Dodawanie trenera</title>
+    <title>Admin: Dodawanie użytkownika</title>
     <link th:href="@{/css/general.css}" rel="stylesheet"/>
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
     <link th:href="@{/css/adminpanel.css}" rel="stylesheet">
-    <link th:href="@{/css/admin/addteacher.css}" rel="stylesheet">
+    <link th:href="@{/css/admin/adduser.css}" rel="stylesheet">
 </head>
 <body>
 <div th:replace="navbar :: navbar"></div>
 <div th:replace="adminpanel :: adminpanel"></div>
 <div id="content">
     <div class="courses-container">
-        <h3>Dodawanie nowego trenera</h3>
+        <h3>Dodawanie nowego użytkownika</h3>
         <form class="teacher-add-form"
-              th:action="@{/admin/users/teachers/add}" th:object="${user}"
-              th:method="'post'">
+              th:action="@{/admin/users/add}" th:object="${user}" th:method="'post'">
             <div>
                 <ul aria-label="Proszę poprawić poniższe błędy"
                     th:if="${#fields.hasErrors('*')}">
                     <li th:each="err : ${#fields.errors('*')}"
-                        th:text="${err}">errorsList</li>
+                        th:text="${err}">errorsList
+                    </li>
                 </ul>
             </div>
             <div class="form-grid">
@@ -46,10 +46,12 @@
                        th:field="*{phone}"
                        th:errorclass="field-error">
 
-                <label for="teacher-hourly-rate">Stawka godzinowa: </label>
-                <input type="number" id="teacher-hourly-rate"
-                       th:field="*{hourlyRate}"
-                       th:errorclass="field-error">
+                <th:block th:if="${user.role.equals(user.role.ROLE_TEACHER)}">
+                    <label for="teacher-hourly-rate">Stawka godzinowa: </label>
+                    <input type="number" id="teacher-hourly-rate"
+                           th:field="*{hourlyRate}"
+                           th:errorclass="field-error">
+                </th:block>
 
                 <label for="password-1">Hasło: </label>
                 <input type="password" id="password-1"
@@ -60,7 +62,26 @@
                 <input type="password" id="password-2"
                        name="passwordRepeat">
 
-                <button>Dodaj trenera</button>
+                <th:block th:if="${user.role.equals(user.role.ROLE_USER)}">
+                    <fieldset>
+                        <legend>Kursy, na które jest zapisany:</legend>
+                        <div class="mode-grid">
+                            <th:block th:each="course: ${coursesList}">
+                                <input th:id="${course.name}"
+                                       type="checkbox"
+                                       th:value="${course.id}"
+                                       th:field="*{courses}">
+                                <label th:for="${course.name}"
+                                       th:text="${course.name} + ' - ' +
+                                   ${course.mode.getDescription()}">course</label>
+                            </th:block>
+                        </div>
+                    </fieldset>
+                </th:block>
+
+                <input type="hidden" th:field="*{role}" th:value="${user.role}">
+
+                <button>Dodaj użytkownika</button>
             </div>
         </form>
     </div>

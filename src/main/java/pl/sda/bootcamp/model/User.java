@@ -39,10 +39,6 @@ public class User {
     @ManyToMany
     private List<Course> courses;
 
-    /*@ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;*/
-
     @Enumerated(EnumType.STRING)
     private Role role;
 
