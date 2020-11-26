@@ -17,10 +17,16 @@ div.course-details {
     justify-items: stretch;
 }
 
+h3 {
+    text-align: center;
+    margin-top: 1.5em;
+    margin-bottom: 0;
+}
+
 form {
     background: white;
     border-radius: 10px;
-    margin-top: 2rem;
+    margin-top: 1em;
     max-width: 500px;
     margin-left: auto;
     margin-right: auto;
@@ -63,7 +69,7 @@ form button:active {
 
 form label {
     text-align: left;
-    font-size: 3vw;
+    font-size: 3.5vw;
     display: block;
     padding: 0.5em 1.5em 0.5em 0;
     margin-left: 1em;
@@ -71,6 +77,19 @@ form label {
 
 input:focus {
     background-color: rgb(165, 196, 250);
+}
+
+span.error-wrapper {
+    display: block;
+    text-align: right;
+    color: red;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 1.5em;
+}
+
+.field-error {
+    border: 1px solid red;
 }
 
 div.course-header {
@@ -131,6 +150,9 @@ ul li {
     form input {
         float: left;
         width: calc(100% - 150px);
+    }
+    span.error-wrapper {
+        font-size: 0.7em;
     }
     button {
         float: right;

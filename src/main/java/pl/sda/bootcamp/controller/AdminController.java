@@ -61,28 +61,53 @@ public class AdminController {
     }
 
     @PostMapping("/courses/add")
-    public String addCourseToDB(@ModelAttribute Course course) {
+    public String addCourseToDB(@Valid @ModelAttribute Course course,
+                                BindingResult result,
+                                Model model) {
+        if (Objects.nonNull(course.getBeginDate()) &&
+            Objects.nonNull(course.getEndDate()) &&
+            course.getEndDate().isBefore(course.getBeginDate())) {
+            result.rejectValue("endDate", "dates_conflict",
+                               "Data zakończenia nie może być wcześniejsza niż data " +
+                               "rozpoczęcia");
+        }
+        if (result.hasErrors()) {
+            model.addAttribute("modes", Mode.values());
+            model.addAttribute("cities", cityService.getCities());
+            model.addAttribute("teachers", this.userService.getAllTeachers());
+            return "admin/addcourse";
+        }
         this.courseService.save(course);
         return "redirect:/admin/courses";
     }
 
     @GetMapping("/courses/edit/{courseId}")
     public String editCourseForm(@PathVariable Long courseId,
-                                 Model model,
-                                 final HttpSession session) {
-        session.setAttribute("courseId", courseId);
+                                 Model model) {
         model.addAttribute("course", this.courseService.getCourse(courseId));
         model.addAttribute("modes", Mode.values());
         model.addAttribute("cities", cityService.getCities());
         model.addAttribute("teachers", this.userService.getAllTeachers());
-        return "admin/editcourse";
+        return "admin/addcourse";
     }
 
     @PostMapping("/courses/edit")
-    public String saveEditedCourse(@ModelAttribute Course course,
-                                   final HttpServletRequest httpServletRequest) {
-        Long courseId = (Long) httpServletRequest.getSession().getAttribute("courseId");
-        course.setId(courseId);
+    public String saveEditedCourse(@Valid @ModelAttribute Course course,
+                                   BindingResult result,
+                                   Model model) {
+        if (Objects.nonNull(course.getBeginDate()) &&
+            Objects.nonNull(course.getEndDate()) &&
+            course.getEndDate().isBefore(course.getBeginDate())) {
+            result.rejectValue("endDate", "dates_conflict",
+                               "Data zakończenia nie może być wcześniejsza niż data " +
+                               "rozpoczęcia");
+        }
+        if (result.hasErrors()) {
+            model.addAttribute("modes", Mode.values());
+            model.addAttribute("cities", cityService.getCities());
+            model.addAttribute("teachers", this.userService.getAllTeachers());
+            return "admin/addcourse";
+        }
         this.courseService.update(course);
         return "redirect:/admin/courses";
     }
@@ -134,10 +159,14 @@ public class AdminController {
 
     @GetMapping("/users/edit/{userId}")
     public String editTeacher(@PathVariable Long userId, Model model) {
-        User user = this.userService.getUserById(userId);
-        model.addAttribute("coursesList", this.courseService.getAllCourses());
-        model.addAttribute("user", user);
-        return "admin/edituser";
+        if (userId > 3) {
+            User user = this.userService.getUserById(userId);
+            model.addAttribute("coursesList", this.courseService.getAllCourses());
+            model.addAttribute("user", user);
+            return "admin/edituser";
+        } else {
+            return "redirect:/admin/users";
+        }
     }
 
     @PostMapping("/users/edit")
@@ -155,7 +184,9 @@ public class AdminController {
 
     @GetMapping("/users/delete/{userId}")
     public String removeUser(@PathVariable Long userId) {
-        this.userService.delete(userId);
+        if (userId > 3) {
+            this.userService.delete(userId);
+        }
         return "redirect:/admin/users";
     }
 }

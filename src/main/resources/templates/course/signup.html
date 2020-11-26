@@ -47,36 +47,72 @@
                 </div>
             </div>
             <div id="signup-form-container">
+                <h3>Załóż nowe konto, aby zapisać się na powyższy kurs</h3>
                 <form th:action="@{'/kurs/zapis'}" th:object="${user}"
                       th:method="'post'">
-                    <div>
+
+                    <!--<div>
                         <ul aria-label="Proszę poprawić poniższe błędy"
                             th:if="${#fields.hasErrors('*')}">
                             <li th:each="err : ${#fields.errors('*')}"
-                                th:text="${err}">errorsList</li>
+                                th:text="${err}">errorsList
+                            </li>
                         </ul>
-                    </div>
+                    </div>-->
+
                     <label for="first-name">Imię: </label>
-                    <input type="text" id="first-name"
-                           th:field="*{firstName}"><br>
+                    <div>
+                        <input type="text" id="first-name"
+                               th:field="*{firstName}" th:errorclass="field-error">
+                        <span class="error-wrapper"
+                              th:if="${#fields.hasErrors('firstName')}"
+                              th:errors="*{firstName}">firstName-error-info</span>
+                    </div>
+
                     <label for="last-name">Nazwisko: </label>
-                    <input type="text" id="last-name"
-                           th:field="*{lastName}"><br>
+                    <div>
+                        <input type="text" id="last-name"
+                               th:field="*{lastName}" th:errorclass="field-error">
+                        <span class="error-wrapper"
+                              th:if="${#fields.hasErrors('lastName')}"
+                              th:errors="*{lastName}">lastName-error-info</span>
+                    </div>
+
                     <label for="email">E-mail: </label>
-                    <input type="text" id="email"
-                           th:field="*{email}"><br>
+                    <div>
+                        <input type="text" id="email"
+                               th:field="*{email}" th:errorclass="field-error">
+                        <span class="error-wrapper" th:if="${#fields.hasErrors('email')}"
+                              th:errors="*{email}">email-error-info</span>
+                    </div>
+
                     <label for="phone">Telefon: </label>
-                    <input type="text" id="phone"
-                           th:field="*{phone}"><br>
+                    <div>
+                        <input type="text" id="phone"
+                               th:field="*{phone}" th:errorclass="field-error">
+                        <span class="error-wrapper" th:if="${#fields.hasErrors('phone')}"
+                              th:errors="*{phone}">phone-error-info</span>
+                    </div>
 
                     <label for="password-1">Hasło: </label>
-                    <input type="password" id="password-1"
-                           th:field="*{password}"
-                           th:errorclass="field-error">
+                    <div>
+                        <input type="password" id="password-1"
+                               th:field="*{password}" th:errorclass="field-error">
+                        <span class="error-wrapper"
+                              th:if="${#fields.hasErrors('password')}"
+                              th:errors="*{password}">password-error-info</span>
+                    </div>
 
                     <label for="password-2">Powtórz hasło: </label>
-                    <input type="password" id="password-2"
-                           name="passwordRepeat">
+                    <input type="password" id="password-2" name="passwordRepeat"
+                           th:classappend="${#fields.hasErrors('password')} ?
+                           'field-error'">
+
+                    <input type="hidden" th:field="*{role}" th:value="${user.role}">
+                    <input type="hidden" th:field="*{hourlyRate}"
+                           th:value="${user.hourlyRate}">
+                    <input type="hidden" name="courseId" th:value="${chosenCourse.id}">
+
                     <button>Wyślij zgłoszenie</button>
                 </form>
             </div>

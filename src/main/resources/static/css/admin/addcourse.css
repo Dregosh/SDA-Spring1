@@ -28,6 +28,11 @@ label {
     justify-self: flex-end;
 }
 
+label[for="course-end"] {
+    display: block;
+    margin-top: 0.5em;
+}
+
 fieldset {
     border: 1px solid rgb(130, 167, 231);
     border-radius: 8px;
@@ -46,7 +51,7 @@ input[type="radio"] {
 }
 
 input[type="date"] {
-    margin: 5px 0 15px;
+    margin-top: 5px;
 }
 
 input[type="radio"] + label {
@@ -78,6 +83,19 @@ input:focus {
 
 form button:active {
     transform: scale(1.05);
+}
+
+.field-error {
+    border: 1px solid red;
+}
+
+span.error-wrapper {
+    /*display: block;*/
+    /*text-align: right;*/
+    color: red;
+    font-size: 0.7em;
+    font-weight: bold;
+    margin-top: 0.3em;
 }
 
 @media screen and (max-width: 992px) {

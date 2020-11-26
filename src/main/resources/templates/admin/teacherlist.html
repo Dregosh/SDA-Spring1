@@ -50,10 +50,14 @@
                 </td>
                 <td>
                     <a th:href="@{/admin/users/edit/{userId}(userId=${teacher.id})}">
-                        <button class="edit-button">Edytuj</button>
+                        <button class="edit-button"
+                                th:classappend="${teacher.id <= 3} ? 'inactive'">Edytuj
+                        </button>
                     </a>
                     <a th:href="@{/admin/users/delete/{userId}(userId=${teacher.id})}">
-                        <button class="delete-button">Usuń</button>
+                        <button class="delete-button"
+                                th:classappend="${teacher.id <= 3} ? 'inactive'">Usuń
+                        </button>
                     </a>
                 </td>
             </tr>

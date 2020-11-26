@@ -70,14 +70,14 @@ table .delete-button:focus {
 }
 
 table .inactive {
-    background-color: #aca9a9;
+    background-color: #e4e4e4;
     color: lightgrey;
     border: 1px solid lightgrey;
     cursor: default;
 }
 
 table .inactive:hover {
-    background-color: #aca9a9;
+    background-color: #e4e4e4;
 }
 
 @media screen and (max-width: 992px) {

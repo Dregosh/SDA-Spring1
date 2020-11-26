@@ -42,10 +42,14 @@
                     th:text="${user.role.roleName}">userRole</td>
                 <td>
                     <a th:href="@{/admin/users/edit/{userId}(userId=${user.id})}">
-                        <button class="edit-button">Edytuj</button>
+                        <button class="edit-button"
+                                th:classappend="${user.id <= 3} ? 'inactive'">Edytuj
+                        </button>
                     </a>
                     <a th:href="@{/admin/users/delete/{userId}(userId=${user.id})}">
-                        <button class="delete-button">Usuń</button>
+                        <button class="delete-button"
+                                th:classappend="${user.id <= 3} ? 'inactive'">Usuń
+                        </button>
                     </a>
                 </td>
             </tr>

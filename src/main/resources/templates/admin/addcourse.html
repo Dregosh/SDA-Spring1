@@ -20,45 +20,76 @@
               th:method="'post'">
             <div class="form-grid">
                 <label for="course-name">Nazwa kursu: </label>
-                <input type="text" id="course-name" th:field="*{name}" required>
+                <div>
+                    <input type="text" id="course-name" th:field="*{name}"
+                           th:errorclass="field-error">
+                    <span class="error-wrapper" th:if="${#fields.hasErrors('name')}"
+                          th:errors="*{name}">name-error-info</span>
+                </div>
 
                 <label for="city-selector">Wybierz miasto: </label>
                 <select id="city-selector" th:field="*{city}">
                     <option th:each="city: ${cities}" th:text="${city}"
-                            th:value="${city}">city</option>
+                            th:value="${city}">city
+                    </option>
                 </select>
 
                 <fieldset class="course-period">
                     <legend>Okres kursu</legend>
                     <label for="course-begin">Początek</label>
-                    <input type="date" id="course-begin" th:field="*{beginDate}" required>
+                    <div>
+                        <input type="date" id="course-begin" th:field="*{beginDate}"
+                               th:errorclass="field-error">
+                        <span class="error-wrapper"
+                              th:if="${#fields.hasErrors('beginDate')}"
+                              th:errors="*{beginDate}">beginDate-error-info</span>
+                    </div>
                     <label for="course-end">Koniec</label>
-                    <input type="date" id="course-end" th:field="*{endDate}" required>
+                    <div>
+                        <input type="date" id="course-end" th:field="*{endDate}"
+                               th:errorclass="field-error">
+                        <span class="error-wrapper"
+                              th:if="${#fields.hasErrors('endDate')}"
+                              th:errors="*{endDate}">endDate-error-info</span>
+                    </div>
                 </fieldset>
 
                 <fieldset>
                     <legend>Tryb</legend>
                     <div class="mode-grid">
                         <th:block th:each="m: ${modes}">
-                        <input th:id="${m.getDescription()}"
-                               type="radio"
-                               th:value="${m}"
-                               th:field="*{mode}" required>
-                        <label th:for="${m.getDescription()}"
-                               th:text="${m.getDescription()}">dzienny</label>
+                            <input th:id="${m.getDescription()}"
+                                   type="radio"
+                                   th:value="${m}"
+                                   th:field="*{mode}">
+                            <label th:for="${m.getDescription()}"
+                                   th:text="${m.getDescription()}">dzienny</label>
                         </th:block>
                     </div>
+                    <span class="error-wrapper" th:if="${#fields.hasErrors('mode')}"
+                          th:errors="*{mode}">mode-error-info</span>
                 </fieldset>
+
                 <label for="course-price">Cena: </label>
-                <input type="number" id="course-price" th:field="*{price}" required>
+                <div>
+                    <input type="number" id="course-price" th:field="*{price}"
+                           th:errorclass="field-error">
+                    <span class="error-wrapper" th:if="${#fields.hasErrors('price')}"
+                          th:errors="*{price}">price-error-info</span>
+                </div>
 
                 <label for="course-teacher">Trener: </label>
                 <select id="course-teacher" th:field="*{teacher}">
                     <option th:each="possibleTeacher: ${teachers}"
                             th:value="${possibleTeacher.id}"
                             th:text="${possibleTeacher.lastName + ' ' +
-                            possibleTeacher.firstName}">Trener</option>
+                            possibleTeacher.firstName}">Trener
+                    </option>
                 </select>
+
+                <input th:if="${course.id}" type="hidden"
+                       th:field="*{id}" th:value="${course.id}">
+
                 <button>Zapisz kurs</button>
             </div>
         </form>
