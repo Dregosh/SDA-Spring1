@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.bootcamp.model.*;
 import pl.sda.bootcamp.service.*;
@@ -11,6 +12,7 @@ import pl.sda.bootcamp.service.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Objects;
 
 @Controller
 @AllArgsConstructor
@@ -93,7 +95,10 @@ public class AdminController {
 
     @GetMapping("/users/add-student")
     public String addStudentForm(Model model) {
-        model.addAttribute("user", User.builder().role(Role.ROLE_USER).build());
+        model.addAttribute("user", User.builder()
+                                       .role(Role.ROLE_USER)
+                                       .hourlyRate(0.0)
+                                       .build());
         model.addAttribute("coursesList", this.courseService.getAllCourses());
         return "admin/adduser";
     }
@@ -105,13 +110,18 @@ public class AdminController {
     }
 
     @PostMapping("/users/add")
-    public String processNewUser(@Valid @ModelAttribute User user,
+    public String processNewUser(@Validated(User.ValidationNew.class)
+                                 @ModelAttribute User user,
                                  BindingResult result,
                                  @RequestParam String passwordRepeat,
                                  Model model) {
         if (!user.getPassword().equals(passwordRepeat)) {
             result.rejectValue("password", "passwords_match_err",
                                "Wpisane hasła różnią się");
+        }
+        if (Objects.nonNull(this.userService.findByEmail(user.getEmail()))) {
+            result.rejectValue("email", "email_already_taken",
+                               "Konto z takim adresem e-mail już istnieje");
         }
         if (result.hasErrors()) {
             model.addAttribute("coursesList", this.courseService.getAllCourses());
@@ -131,9 +141,10 @@ public class AdminController {
     }
 
     @PostMapping("/users/edit")
-    public String saveEditedUser(@Valid @ModelAttribute User user,
-                                    BindingResult result,
-                                    Model model) {
+    public String saveEditedUser(@Validated(User.ValidationEdited.class)
+                                 @ModelAttribute User user,
+                                 BindingResult result,
+                                 Model model) {
         if (result.hasErrors()) {
             model.addAttribute("coursesList", this.courseService.getAllCourses());
             return "admin/edituser";

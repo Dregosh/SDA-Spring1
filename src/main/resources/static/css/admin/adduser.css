@@ -14,6 +14,12 @@ div.courses-container {
     margin: 0 auto 15px;
 }
 
+label {
+    align-self: flex-start;
+    justify-self: flex-end;
+    margin-top: 0.3em;
+}
+
 input {
     grid-column: 2 / 3;
     width: 100%;
@@ -24,8 +30,13 @@ input {
     padding: 0.7em;
 }
 
-label {
-    justify-self: flex-end;
+span.error-wrapper {
+    display: block;
+    text-align: right;
+    color: red;
+    font-size: 0.7em;
+    font-weight: bold;
+    margin-top: 0.3em;
 }
 
 fieldset {

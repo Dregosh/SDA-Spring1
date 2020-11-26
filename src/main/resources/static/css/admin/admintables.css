@@ -30,12 +30,29 @@ table th {
     text-transform: uppercase;
 }
 
-table .delete-button {
-    margin-top: 0.3em;
-    max-width: 75%;
-    padding: 0.5em 1em;
+table .edit-button {
+    width: 90%;
+    padding: 0.5em 0;
     text-transform: uppercase;
-    font-size: small;
+    font-size: 0.75vw;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    background-color: green;
+    transition: 0.3s all;
+    cursor: pointer;
+}
+
+table .edit-button:hover {
+    background-color: lightgreen;
+}
+
+table .delete-button {
+    width: 90%;
+    margin-top: 0.3em;
+    padding: 0.5em 0;
+    text-transform: uppercase;
+    font-size: 0.75vw;
     border: none;
     border-radius: 8px;
     color: white;
@@ -52,23 +69,6 @@ table .delete-button:focus {
     outline: none;
 }
 
-table .edit-button {
-    max-width: 75%;
-    padding: 0.5em 1em;
-    text-transform: uppercase;
-    font-size: small;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    background-color: green;
-    transition: 0.3s all;
-    cursor: pointer;
-}
-
-table .edit-button:hover {
-    background-color: lightgreen;
-}
-
 table .inactive {
     background-color: #aca9a9;
     color: lightgrey;
@@ -83,6 +83,7 @@ table .inactive:hover {
 @media screen and (max-width: 992px) {
     table {
         border: 0;
+        font-size: 3vw;
     }
     table caption {
         font-size: 1.3em;
@@ -116,8 +117,10 @@ table .inactive:hover {
     table td:last-child {
         border-bottom: 0;
     }
+    table .edit-button,
     table .delete-button {
+        max-width: 20%;
         border-radius: 2px;
-        font-size: xx-small;
+        font-size: 3vw;
     }
 }

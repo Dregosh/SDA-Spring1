@@ -3,7 +3,7 @@ package pl.sda.bootcamp.model;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,19 +18,29 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "imię")
+    @NotEmpty(message = "Proszę podać imię",
+              groups = {ValidationNew.class, ValidationEdited.class})
     private String firstName;
 
-    @NotEmpty(message = "{pl.sda.bootcamp.model.User.lastName.NotEmpty}")
+    @NotEmpty(message = "Proszę podać nazwisko",
+              groups = {ValidationNew.class, ValidationEdited.class})
     private String lastName;
 
-    @NotEmpty(message = "e-mail")
+    @NotEmpty(message = "Proszę podać adres e-mail",
+              groups = {ValidationNew.class, ValidationEdited.class})
+    @Email(message = "Niepoprawny adres e-mail",
+           groups = {ValidationNew.class, ValidationEdited.class})
     @Column(unique = true)
     private String email;
 
-    @NotEmpty(message = "telefon")
+    @NotEmpty(message = "Proszę podać telefon",
+              groups = {ValidationNew.class, ValidationEdited.class})
     private String phone;
 
+    @NotNull(message = "Proszę podać stawkę godzinową",
+             groups = {ValidationNew.class, ValidationEdited.class})
+    @Min(value = 0, message = "Stawka nie może być ujemna",
+         groups = {ValidationNew.class, ValidationEdited.class})
     private Double hourlyRate;
 
     @OneToMany(mappedBy = "teacher")
@@ -42,6 +52,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @NotEmpty(message = "Proszę uzupełnić hasło",
+              groups = {ValidationNew.class})
     private String password;
 
     public void addTeacherCourse(Course course) {
@@ -61,4 +73,7 @@ public class User {
             it.remove();
         }
     }
+
+    public interface ValidationNew { }
+    public interface ValidationEdited { }
 }

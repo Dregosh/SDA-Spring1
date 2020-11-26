@@ -15,31 +15,59 @@
 <div id="content">
     <div class="courses-container">
         <h3>Edycja danych użytkownika</h3>
-        <form class="teacher-add-form"
-              th:action="@{/admin/users/edit}" th:object="${user}"
-              th:method="'post'">
-            <div class="form-grid">
+        <form th:action="@{/admin/users/edit}" th:object="${user}" th:method="'post'">
 
+            <!--<div>
+                <ul aria-label="Proszę poprawić poniższe błędy"
+                    th:if="${#fields.hasErrors('*')}">
+                    <li th:each="err : ${#fields.errors('*')}"
+                        th:text="${err}">errorsList
+                    </li>
+                </ul>
+            </div>-->
+
+            <div class="form-grid">
                 <label for="first-name">Imię: </label>
-                <input type="text" id="first-name"
-                       th:field="*{firstName}">
+                <div>
+                    <input type="text" id="first-name"
+                           th:field="*{firstName}" th:errorclass="field-error">
+                    <span class="error-wrapper" th:if="${#fields.hasErrors('firstName')}"
+                          th:errors="*{firstName}">firstName-error-info</span>
+                </div>
 
                 <label for="last-name">Nazwisko: </label>
-                <input type="text" id="last-name"
-                       th:field="*{lastName}">
+                <div>
+                    <input type="text" id="last-name"
+                           th:field="*{lastName}" th:errorclass="field-error">
+                    <span class="error-wrapper" th:if="${#fields.hasErrors('lastName')}"
+                          th:errors="*{lastName}">lastName-error-info</span>
+                </div>
 
                 <label for="email">E-mail: </label>
-                <input type="text" id="email"
-                       th:field="*{email}">
+                <div>
+                    <input type="text" id="email"
+                           th:field="*{email}" th:errorclass="field-error">
+                    <span class="error-wrapper" th:if="${#fields.hasErrors('email')}"
+                          th:errors="*{email}">email-error-info</span>
+                </div>
 
                 <label for="phone">Telefon: </label>
-                <input type="text" id="phone"
-                       th:field="*{phone}">
+                <div>
+                    <input type="text" id="phone"
+                           th:field="*{phone}" th:errorclass="field-error">
+                    <span class="error-wrapper" th:if="${#fields.hasErrors('phone')}"
+                          th:errors="*{phone}">phone-error-info</span>
+                </div>
 
                 <th:block th:if="${user.role.equals(user.role.ROLE_TEACHER)}">
                     <label for="teacher-hourly-rate">Stawka godzinowa: </label>
-                    <input type="number" id="teacher-hourly-rate"
-                           th:field="*{hourlyRate}">
+                    <div>
+                        <input type="number" id="teacher-hourly-rate"
+                               th:field="*{hourlyRate}" th:errorclass="field-error">
+                        <span class="error-wrapper"
+                              th:if="${#fields.hasErrors('hourlyRate')}"
+                              th:errors="*{hourlyRate}">hourlyRate-error-info</span>
+                    </div>
 
                     <fieldset>
                         <legend>Kursy, w których jest trenerem:</legend>
@@ -72,6 +100,8 @@
                             </th:block>
                         </div>
                     </fieldset>
+                    <input type="hidden" th:field="*{hourlyRate}"
+                           th:value="${user.hourlyRate}">
                 </th:block>
 
                 <input type="hidden" th:field="*{id}" th:value="${user.id}">
