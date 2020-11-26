@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin: Dodawanie kursu</title>
+    <title>Admin: Formularz kursu</title>
     <link th:href="@{/css/general.css}" rel="stylesheet"/>
     <link th:href="@{/css/navbar.css}" rel="stylesheet">
     <link th:href="@{/css/adminpanel.css}" rel="stylesheet">
-    <link th:href="@{/css/admin/addcourse.css}" rel="stylesheet">
+    <link th:href="@{/css/admin/courseform.css}" rel="stylesheet">
 </head>
 <body>
 <div th:replace="navbar :: navbar"></div>
 <div th:replace="adminpanel :: adminpanel"></div>
 <div id="content">
     <div class="courses-container">
-        <h3>Dodawanie nowego kursu</h3>
+        <h3>Formularz kursu</h3>
         <form class="course-add-form"
-              th:action="@{'/admin/courses/add'}" th:object="${course}"
+              th:action="@{'/admin/courses/save'}" th:object="${course}"
               th:method="'post'">
             <div class="form-grid">
                 <label for="course-name">Nazwa kursu: </label>

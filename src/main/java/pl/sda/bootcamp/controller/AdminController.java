@@ -57,10 +57,20 @@ public class AdminController {
         model.addAttribute("modes", Mode.values());
         model.addAttribute("cities", cityService.getCities());
         model.addAttribute("teachers", this.userService.getAllTeachers());
-        return "admin/addcourse";
+        return "admin/courseform";
     }
 
-    @PostMapping("/courses/add")
+    @GetMapping("/courses/edit/{courseId}")
+    public String editCourseForm(@PathVariable Long courseId,
+                                 Model model) {
+        model.addAttribute("course", this.courseService.getCourse(courseId));
+        model.addAttribute("modes", Mode.values());
+        model.addAttribute("cities", cityService.getCities());
+        model.addAttribute("teachers", this.userService.getAllTeachers());
+        return "admin/courseform";
+    }
+
+    @PostMapping("/courses/save")
     public String addCourseToDB(@Valid @ModelAttribute Course course,
                                 BindingResult result,
                                 Model model) {
@@ -75,40 +85,13 @@ public class AdminController {
             model.addAttribute("modes", Mode.values());
             model.addAttribute("cities", cityService.getCities());
             model.addAttribute("teachers", this.userService.getAllTeachers());
-            return "admin/addcourse";
+            return "admin/courseform";
         }
-        this.courseService.save(course);
-        return "redirect:/admin/courses";
-    }
-
-    @GetMapping("/courses/edit/{courseId}")
-    public String editCourseForm(@PathVariable Long courseId,
-                                 Model model) {
-        model.addAttribute("course", this.courseService.getCourse(courseId));
-        model.addAttribute("modes", Mode.values());
-        model.addAttribute("cities", cityService.getCities());
-        model.addAttribute("teachers", this.userService.getAllTeachers());
-        return "admin/addcourse";
-    }
-
-    @PostMapping("/courses/edit")
-    public String saveEditedCourse(@Valid @ModelAttribute Course course,
-                                   BindingResult result,
-                                   Model model) {
-        if (Objects.nonNull(course.getBeginDate()) &&
-            Objects.nonNull(course.getEndDate()) &&
-            course.getEndDate().isBefore(course.getBeginDate())) {
-            result.rejectValue("endDate", "dates_conflict",
-                               "Data zakończenia nie może być wcześniejsza niż data " +
-                               "rozpoczęcia");
+        if (Objects.nonNull(course.getId())) {
+            this.courseService.update(course);
+        } else {
+            this.courseService.save(course);
         }
-        if (result.hasErrors()) {
-            model.addAttribute("modes", Mode.values());
-            model.addAttribute("cities", cityService.getCities());
-            model.addAttribute("teachers", this.userService.getAllTeachers());
-            return "admin/addcourse";
-        }
-        this.courseService.update(course);
         return "redirect:/admin/courses";
     }
 
