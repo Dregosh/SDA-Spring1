@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trener: Baza Kursów</title>
+    <link th:href="@{/css/general.css}" rel="stylesheet"/>
+    <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <link th:href="@{/css/panels/teacherpanel.css}" rel="stylesheet">
+    <link th:href="@{/css/admin/admintables.css}" rel="stylesheet">
+    <link th:href="@{/css/panels/teachercourses.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="navbar :: navbar"></div>
+<div th:replace="panels/teacherpanel :: teacherpanel"></div>
+
+<div id="content">
+    <div class="courses-container">
+        <table>
+            <caption>Kursy, które prowadzisz</caption>
+            <thead>
+            <tr>
+                <th scope="col">Nazwa kursu</th>
+                <th scope="col">Miasto</th>
+                <th scope="col">Start</th>
+                <th scope="col">Koniec</th>
+                <th scope="col">Tryb</th>
+                <th scope="col">Kursanci</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="course: ${courses}">
+                <td data-label="Nazwa kursu" th:text="${course.name}">courseName</td>
+                <td data-label="Miasto" th:text="${course.city}">courseCity</td>
+                <td data-label="Start" th:text="${course.beginDate}">courseBegin</td>
+                <td data-label="Koniec" th:text="${course.endDate}">courseEnd</td>
+                <td data-label="Tryb"
+                    th:text="${course.mode.getDescription()}">courseMode
+                </td>
+                <td data-label="Kursanci"
+                    th:text="${course.users.size()}">studentsAmount
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -14,18 +14,34 @@
 <div id="content">
     <div class="courses-container">
         <div id="signup-form-container">
-            <p class="strong">Wbudowane konta demonstracyjne:</p>
-            <p>Administrator (Login: admin@op.pl, Hasło: admin)</p>
-            <p>Trener (Login: trener@op.pl, Hasło: trener)</p><br>
-            <p>[aby obejrzeć Panel Studenta zapisz się na dowolny kurs]</p>
+            <div id="info-wrapper">
+                <div id="info-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div id="info-text">
+                    <p class="strong">Wbudowane konta demonstracyjne:</p>
+                    <p>Administrator:</p>
+                        <p>login: <strong>admin@op.pl</strong> hasło: <strong>admin
+                        </strong></p><br>
+                    <p>Trener:</p>
+                    <p>login: <strong>trener@op.pl</strong> hasło: <strong>trener
+                    </strong></p><br>
+                    <p>Student:</p>
+                    <p>login: <strong>student@op.pl</strong> hasło: <strong>student
+                    </strong></p><br>
+                    <p>Możesz również zapisać się na dowolny kurs</p>
+                    <p>i zalogować na utworzone przy zapisie konto.</p>
+                </div>
+            </div>
+
             <h2>Zaloguj się</h2>
             <div th:if="${param.error}" class="error-wrapper">Logowanie nieudane.
                 Sprawdź poprawność adresu e-mail i hasła.
             </div>
             <form th:action="@{'/login'}" th:method="'post'">
-                <label for="username">E-mail: </label>
+                <label for="username">E-mail</label>
                 <input type="text" id="username" name="username">
-                <label for="password">Hasło: </label>
+                <label for="password">Hasło</label>
                 <input type="password" id="password" name="password">
                 <button>Zaloguj się</button>
             </form>

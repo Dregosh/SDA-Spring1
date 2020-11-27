@@ -23,11 +23,16 @@ nav a {
     color: white;
     cursor: pointer;
     transition: 0.3s all;
+    padding-left: 7px;
+    padding-right: 7px;
 }
 
-nav div.left-side a {
-    padding-left: 10px;
-    padding-right: 10px;
+nav div.left-side a:first-child {
+    padding-left: 15px;
+}
+
+nav div.right-side a:last-child {
+    padding-right: 15px;
 }
 
 nav a.current-link {
@@ -42,11 +47,6 @@ nav i.current-link {
 nav .fab,
 nav .fas {
     transition: 0.3s all;
-    padding-right: 15px;
-}
-
-div.right-side a:hover {
-    color: mediumblue;
 }
 
 div.left-side a:hover {
@@ -54,10 +54,10 @@ div.left-side a:hover {
     border-radius: 8px;
 }
 
-#logged-welcome,
-#logged-user-name {
-    color: white;
-    font-size: small;
+div.left-side a#info-icon:hover,
+div.right-side a:hover {
+    background-color: rgb(130, 167, 231);
+    color: mediumblue;
 }
 
 #logged-user-name {

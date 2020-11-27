@@ -1,21 +1,32 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Studenta</title>
-    <link th:href="@{/css/general.css}" rel="stylesheet"/>
-    <link th:href="@{/css/navbar.css}" rel="stylesheet">
-    <!--    <link th:href="@{/css/admin/admintables.css}" rel="stylesheet">-->
-    <!--    <link th:href="@{/css/admin/teacherlist.css}" rel="stylesheet">-->
+    <link th:href="@{/css/panels/studentpanel.css}" rel="stylesheet">
 </head>
 <body>
-<div th:replace="navbar :: navbar"></div>
-
-<div id="content">
-    <div class="courses-container">
-        <p>Panel Studenta</p>
-        <a th:href="@{/logout}">Wyloguj</a>
+<div id="adminbar-content" th:fragment="studentpanel">
+    <h2>Panel Studenta: <span sec:authentication="name"></span></h2>
+    <div class="adminbar-container">
+        <th:block th:with="currentUrl=${#httpServletRequest.requestURI}">
+            <a th:href="@{/panel-klienta/kursy}">
+                <div id="courses-base" class="adminbar-button"
+                     th:classappend="${currentUrl.equals('/panel-klienta/kursy')} ?
+                      'current'">
+                    <div class="button-text">Twoje Kursy</div>
+                </div>
+            </a>
+            <a th:href="@{/panel-klienta/edycja-konta}">
+                <div id="all-users-base" class="adminbar-button"
+                     th:classappend="${currentUrl.equals('/panel-klienta/edycja-konta')} ?
+                      'current'">
+                    <div class="button-text">Edycja Konta</div>
+                </div>
+            </a>
+        </th:block>
     </div>
 </div>
 </body>

@@ -10,17 +10,19 @@
 <body>
 <nav th:fragment="navbar">
     <div class="left-side">
+        <a href="#" title="Oferta dla klienta" id="info-icon">
+            <i class="fas fa-info-circle"
+               th:classappend="${#httpServletRequest.requestURI == '#'} ?
+       'current-link'"></i></a>
         <a th:href="@{/kurs/lista}" title="Oferta dla klienta"
            th:classappend="${#httpServletRequest.requestURI == '/kurs/lista'} ?
        'current-link'">Kursy</a>
     </div>
     <div class="right-side">
-        <th:block sec:authorize="isAuthenticated()">
-            <span id="logged-welcome">Witaj, </span>
-            <span id="logged-user-name" sec:authentication="name"></span>
-        </th:block>
         <a sec:authorize="!isAuthenticated()" th:href="@{/login}" title="Zaloguj się">
-            <i class="fas fa-sign-in-alt"></i></a>
+            <i class="fas fa-sign-in-alt"
+               th:classappend="${#httpServletRequest.requestURI == '/login'} ?
+       'current-link'"></i></a>
         <th:block sec:authorize="isAuthenticated()">
         <a href="javascript: document.logoutForm.submit()">
             <i class="fas fa-sign-out-alt"></i></a>

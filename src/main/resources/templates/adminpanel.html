@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,7 @@
 </head>
 <body>
 <div id="adminbar-content" th:fragment="adminpanel">
-    <h2>Panel Administracyjny</h2>
+    <h2>Panel Administratora: <span sec:authentication="name"></span></h2>
     <div class="adminbar-container">
         <th:block th:with="currentUrl=${#httpServletRequest.requestURI}">
             <a th:href="@{/admin/courses}">

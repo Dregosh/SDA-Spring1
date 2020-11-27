@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student: Edycja konta</title>
+    <link th:href="@{/css/general.css}" rel="stylesheet"/>
+    <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <link th:href="@{/css/panels/studentpanel.css}" rel="stylesheet">
+    <link th:href="@{/css/panels/editstudent.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="navbar :: navbar"></div>
+<div th:replace="panels/studentpanel :: studentpanel"></div>
+
+<div id="content">
+    <div class="courses-container">
+        <h3>Edycja konta</h3>
+        <form th:action="@{/panel-klienta/edycja-konta}"
+              th:object="${user}" th:method="'post'">
+
+            <!--<div>
+                <ul aria-label="Proszę poprawić poniższe błędy"
+                    th:if="${#fields.hasErrors('*')}">
+                    <li th:each="err : ${#fields.errors('*')}"
+                        th:text="${err}">errorsList
+                    </li>
+                </ul>
+            </div>-->
+
+            <div class="form-grid">
+                <label for="first-name">Imię: </label>
+                <div>
+                    <input type="text" id="first-name"
+                           th:field="*{firstName}" th:errorclass="field-error">
+                    <span class="error-wrapper" th:if="${#fields.hasErrors('firstName')}"
+                          th:errors="*{firstName}">firstName-error-info</span>
+                </div>
+
+                <label for="last-name">Nazwisko: </label>
+                <div>
+                    <input type="text" id="last-name"
+                           th:field="*{lastName}" th:errorclass="field-error">
+                    <span class="error-wrapper" th:if="${#fields.hasErrors('lastName')}"
+                          th:errors="*{lastName}">lastName-error-info</span>
+                </div>
+
+                <label for="email">E-mail: </label>
+                <div>
+                    <input type="text" id="email"
+                           th:field="*{email}" th:errorclass="field-error"
+                           th:readonly="${user.id == 3}"
+                           th:classappend="${user.id == 3} ? 'readonly'">
+                    <span class="error-wrapper" th:if="${#fields.hasErrors('email')}"
+                          th:errors="*{email}">email-error-info</span>
+                </div>
+
+                <label for="phone">Telefon: </label>
+                <div>
+                    <input type="text" id="phone"
+                           th:field="*{phone}" th:errorclass="field-error">
+                    <span class="error-wrapper" th:if="${#fields.hasErrors('phone')}"
+                          th:errors="*{phone}">phone-error-info</span>
+                </div>
+
+                <th:block th:if="${user.role.equals(user.role.ROLE_TEACHER)}">
+                    <label for="teacher-hourly-rate">Stawka godzinowa: </label>
+                    <div>
+                        <input type="number" id="teacher-hourly-rate"
+                               th:field="*{hourlyRate}" th:errorclass="field-error">
+                        <span class="error-wrapper"
+                              th:if="${#fields.hasErrors('hourlyRate')}"
+                              th:errors="*{hourlyRate}">hourlyRate-error-info</span>
+                    </div>
+
+                    <fieldset>
+                        <legend>Kursy (w zaznaczonych jesteś trenerem)</legend>
+                        <div class="mode-grid">
+                            <th:block th:each="course: ${coursesList}">
+                                <input th:id="${course.name}"
+                                       type="checkbox"
+                                       th:value="${course.id}"
+                                       th:field="*{teacherForCourses}">
+                                <label th:for="${course.name}"
+                                       th:text="${course.name} + ' - ' +
+                                   ${course.mode.getDescription()}">course</label>
+                            </th:block>
+                        </div>
+                    </fieldset>
+                </th:block>
+
+                <th:block th:if="${user.role.equals(user.role.ROLE_USER)}">
+                    <fieldset>
+                        <legend>Kursy (na zaznaczone jesteś zapisany)</legend>
+                        <div class="mode-grid">
+                            <th:block th:each="course: ${coursesList}">
+                                <input th:id="${course.name}"
+                                       type="checkbox"
+                                       th:value="${course.id}"
+                                       th:field="*{courses}">
+                                <label th:for="${course.name}"
+                                       th:text="${course.name} + ' - ' +
+                                   ${course.mode.getDescription()}">course</label>
+                            </th:block>
+                        </div>
+                    </fieldset>
+                    <input type="hidden" th:field="*{hourlyRate}"
+                           th:value="${user.hourlyRate}">
+                </th:block>
+
+                <input type="hidden" th:field="*{id}" th:value="${user.id}">
+                <input type="hidden" th:field="*{role}" th:value="${user.role}">
+
+                <button>Zapisz zmiany</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

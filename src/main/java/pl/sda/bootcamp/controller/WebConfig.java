@@ -9,8 +9,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController("/", "/kurs/lista");
-        registry.addViewController("/panel-klienta").setViewName("panels/studentpanel");
-        registry.addViewController("/panel-trenera").setViewName("panels/teacherpanel");
         registry.addViewController("/login").setViewName("panels/loginpage");
     }
 }

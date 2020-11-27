@@ -1,0 +1,106 @@
+div#adminbar-content {
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    font-size: 3vw;
+    width: 93%;
+    margin-bottom: 25px;
+}
+
+div#adminbar-content h2 {
+    margin-left: 20px;
+}
+
+div.adminbar-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 5px;
+}
+
+div.adminbar-button.current {
+    background-color: #08b508;
+}
+
+div.adminbar-button {
+    text-transform: uppercase;
+    border-radius: 8px;
+    height: 50px;
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s all;
+}
+
+div.adminbar-button:hover {
+    background-color: #08b508;
+}
+
+div.adminbar-container a {
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}
+
+div.button-text {
+    flex-basis: 50%;
+}
+
+@media (min-width: 576px) {
+    div#adminbar-content {
+        max-width: 540px;
+        font-size: 2.5vw;
+    }
+
+    div.adminbar-container {
+        grid-template-columns: repeat(auto-fill, minmax(102px, 1fr));
+    }
+
+    div.adminbar-button {
+        height: 55px;
+    }
+}
+
+@media (min-width: 768px) {
+    div#adminbar-content {
+        max-width: 520px;
+        font-size: 2vw;
+    }
+
+    div.adminbar-container {
+        grid-template-columns: repeat(auto-fill, minmax(114px, 1fr));
+    }
+
+    div.adminbar-button {
+        height: 60px;
+    }
+}
+
+@media (min-width: 992px) {
+    div#adminbar-content {
+        max-width: 960px;
+        font-size: 1.5vw;
+    }
+
+    div.adminbar-container {
+        grid-template-columns: repeat(auto-fill, minmax(126px, 1fr));
+    }
+
+    div.adminbar-button {
+        height: 65px;
+    }
+}
+
+@media (min-width: 1200px) {
+    div#adminbar-content {
+        max-width: 1140px;
+        font-size: 1vw;
+    }
+
+    div.adminbar-container {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+
+    div.adminbar-button {
+        height: 70px;
+    }
+}
