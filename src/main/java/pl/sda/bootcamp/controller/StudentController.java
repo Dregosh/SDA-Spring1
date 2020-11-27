@@ -33,7 +33,7 @@ public class StudentController {
                               Principal principal) {
         User user = this.userService.findByEmail(principal.getName());
         model.addAttribute("courses", user.getCourses());
-        return "/panels/studentcourses";
+        return "panels/studentcourses";
     }
 
     @GetMapping("/edycja-konta")
@@ -42,7 +42,7 @@ public class StudentController {
         User user = this.userService.findByEmail(principal.getName());
         model.addAttribute("coursesList", this.courseService.getAllCourses());
         model.addAttribute("user", user);
-        return "/panels/editstudent";
+        return "panels/editstudent";
     }
 
     @PostMapping("/edycja-konta")

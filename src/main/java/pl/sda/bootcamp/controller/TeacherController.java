@@ -33,7 +33,7 @@ public class TeacherController {
                               Principal principal) {
         User user = this.userService.findByEmail(principal.getName());
         model.addAttribute("courses", user.getTeacherForCourses());
-        return "/panels/teachercourses";
+        return "panels/teachercourses";
     }
 
     @GetMapping("/edycja-konta")
@@ -42,7 +42,7 @@ public class TeacherController {
         User user = this.userService.findByEmail(principal.getName());
         model.addAttribute("coursesList", this.courseService.getAllCourses());
         model.addAttribute("user", user);
-        return "/panels/editteacher";
+        return "panels/editteacher";
     }
 
     @PostMapping("/edycja-konta")
