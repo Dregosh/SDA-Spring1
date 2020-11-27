@@ -5,12 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.bootcamp.dto.CourseDto;
-import pl.sda.bootcamp.dto.UserDto;
+import pl.sda.bootcamp.dto.TeacherDto;
 import pl.sda.bootcamp.factory.CourseDtoFactory;
 import pl.sda.bootcamp.model.Course;
+import pl.sda.bootcamp.model.Role;
 import pl.sda.bootcamp.model.User;
 import pl.sda.bootcamp.repository.CourseRepository;
-import pl.sda.bootcamp.service.CourseService;
 import pl.sda.bootcamp.service.UserService;
 
 import java.util.List;
@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ApiController {
 
-    private final CourseService courseService;
     private final CourseRepository courseRepository;
     private final CourseDtoFactory courseDtoFactory;
     private final UserService userService;
@@ -44,13 +43,15 @@ public class ApiController {
 
     @PutMapping("/teacher/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createTeacher(@RequestBody UserDto userDto) {
+    public void createTeacher(@RequestBody TeacherDto teacherDto) {
         User user = User.builder()
-                        .firstName(userDto.getFirstName())
-                        .lastName(userDto.getLastName())
-                        .email(userDto.getEmail())
-                        .phone(userDto.getPhone())
-                        .hourlyRate(userDto.getHourlyRate())
+                        .firstName(teacherDto.getFirstName())
+                        .lastName(teacherDto.getLastName())
+                        .email(teacherDto.getEmail())
+                        .phone(teacherDto.getPhone())
+                        .hourlyRate(teacherDto.getHourlyRate())
+                        .role(Role.ROLE_TEACHER)
+                        .password(teacherDto.getRawPassword())
                         .build();
         this.userService.saveUser(user);
     }
